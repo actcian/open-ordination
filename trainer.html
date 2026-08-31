@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#21160f">
+<title>Open Ordination — Loop Trainer</title>
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<style>
+:root{--bg:#f5efe5;--card:#fffaf2;--ink:#21160f;--muted:#75685d;--line:#e7d9c8;--brown:#5f3519;--gold:#c59345;--green:#dff1e4;--purple:#eee8f7}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}.wrap{max-width:920px;margin:auto;padding:14px 14px calc(28px + env(safe-area-inset-bottom))}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:8px 0 14px}.brand{display:flex;gap:10px;align-items:center}.logo{width:46px;height:46px;border-radius:14px;background:#21160f;color:#f1c66a;display:grid;place-items:center;font-size:25px}.top h1{font-size:22px;margin:0}.muted{color:var(--muted)}.back{border:1px solid var(--line);background:#fff;padding:9px 12px;border-radius:999px;color:var(--ink);text-decoration:none}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;margin:12px 0;box-shadow:0 10px 30px #4b32130d}.hero{background:linear-gradient(145deg,#21160f,#6a3c1f);color:#fff;border:0}.hero .muted{color:#eadfce}.mode{display:grid;grid-template-columns:1fr 1fr;gap:10px}.pill{border:1px solid #ffffff33;background:#ffffff12;color:#fff;border-radius:14px;padding:12px}.pill b{display:block}.video{position:relative;padding-top:56.25%;border-radius:16px;overflow:hidden;background:#000;margin-top:12px}.video>div{position:absolute;inset:0}.controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.btn,select,input{font:inherit}.btn{border:1px solid var(--line);background:#fff;border-radius:999px;padding:10px 13px;cursor:pointer}.btn.main{background:var(--brown);color:#fff;border-color:var(--brown)}.btn.on{background:#dff1e4;border-color:#9fc9aa;color:#1e6338}.btn.gold{background:#f4e0b6;border-color:#dbb86f}.timebox{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.time{background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px}.time strong{font-size:22px;display:block}.range{width:100%}.sectionTitle{display:flex;justify-content:space-between;gap:10px;align-items:end}.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}.section{border:1px solid var(--line);background:#fff;border-radius:16px;padding:13px;cursor:pointer}.section.active{outline:2px solid var(--gold);background:#fff7e8}.lines{display:grid;gap:8px;margin-top:12px}.line{display:grid;grid-template-columns:36px 1fr auto;gap:10px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px}.line.active{background:#fff2d9;border-color:#d6aa57}.n{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:#f0e3d1;color:var(--brown);font-weight:800}.lineText{font-size:17px;font-weight:650}.speakbox{background:var(--purple);border-radius:16px;padding:13px;margin-top:12px}.speakbox .controls{margin-top:8px}.select{padding:9px 11px;border-radius:10px;border:1px solid var(--line);background:#fff}.status{font-weight:700;color:var(--brown);min-height:25px;margin-top:8px}.hint{background:var(--green);border-radius:14px;padding:11px;margin-top:10px}.small{font-size:13px}@media(max-width:650px){.mode{grid-template-columns:1fr}.timebox{grid-template-columns:1fr 1fr}.line{grid-template-columns:32px 1fr}.line .btn{grid-column:2}.lineText{font-size:16px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><div class="logo">🪷</div><div><h1>Loop Trainer</h1><div class="muted small">ฟังคนจริง → วนซ้ำ → พูดตาม</div></div></div>
+    <a class="back" href="./">← หนังสือเดิม</a>
+  </div>
+
+  <section class="card hero">
+    <h2 style="margin-top:0">ฝึกแบบหูจำ ไม่ใช่ตาจำ</h2>
+    <div class="mode">
+      <div class="pill"><b>🎧 เสียงคนจริง</b>ใช้คลิปอุกาสะจาก YouTube แล้วตั้งช่วง A–B ให้วนเฉพาะตอนที่กำลังฝึก</div>
+      <div class="pill"><b>🔁 วนไม่จำกัด</b>ตั้งต้น–จบ แล้วปล่อยวนไปเรื่อย ๆ จนปากพูดตามเองได้</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="sectionTitle"><div><h2 style="margin:0">เสียงคนจริง — A/B Loop</h2><div class="muted">เลื่อนไปช่วงที่ต้องการ → กด A → ไปท้ายช่วง → กด B → เปิดวน</div></div></div>
+    <div class="video"><div id="player"></div></div>
+    <div class="controls">
+      <button class="btn gold" onclick="setA()">A เริ่มตรงนี้</button>
+      <button class="btn gold" onclick="setB()">B จบตรงนี้</button>
+      <button id="loopBtn" class="btn" onclick="toggleAB()">🔁 Loop OFF</button>
+      <button class="btn" onclick="jumpA()">↶ กลับ A</button>
+      <button class="btn" onclick="player&&player.playVideo()">▶ เล่น</button>
+      <button class="btn" onclick="player&&player.pauseVideo()">⏸ หยุด</button>
+      <select id="ytRate" class="select" onchange="setVideoRate()"><option value="0.75">0.75×</option><option value="1" selected>1×</option></select>
+    </div>
+    <div class="timebox"><div class="time"><span class="muted small">A — เริ่ม</span><strong id="aText">0:00.0</strong></div><div class="time"><span class="muted small">B — จบ</span><strong id="bText">0:00.0</strong></div></div>
+    <div class="hint">วิธีใช้เร็วสุด: ฟังเจอวรรคที่อยากจำ → กด <b>A</b> → ฟังจนจบวรรค → กด <b>B</b> → เปิด <b>Loop</b>. จากนั้นไม่ต้องแตะจอแล้ว</div>
+  </section>
+
+  <section class="card">
+    <div class="sectionTitle"><div><h2 style="margin:0">เลือกบทที่กำลังฝึก</h2><div class="muted">ไว้เป็นโพยประกอบขณะหา A/B ในเสียงคนจริง</div></div></div>
+    <div id="sections" class="sections"></div>
+    <div id="lines" class="lines"></div>
+  </section>
+
+  <section class="card">
+    <h2 style="margin-top:0">ฝึกทีละวรรค — Call & Response</h2>
+    <p class="muted">อันนี้ใช้เสียงเครื่องเป็นตัวช่วยสำรองเฉพาะตอนอยากให้ “อ่านวรรค → เว้นให้พูดตาม → อ่านซ้ำ” เสียงคนจริงด้านบนเป็นตัวหลัก</p>
+    <div class="speakbox">
+      <div class="controls">
+        <select id="repeatCount" class="select"><option value="3">วน 3 รอบ</option><option value="5">วน 5 รอบ</option><option value="10">วน 10 รอบ</option><option value="0">วนไม่จำกัด</option></select>
+        <select id="pauseSec" class="select"><option value="1.5">เว้น 1.5 วิ</option><option value="2.5" selected>เว้น 2.5 วิ</option><option value="4">เว้น 4 วิ</option></select>
+        <select id="ttsRate" class="select"><option value="0.65">0.65×</option><option value="0.8" selected>0.8×</option><option value="1">1×</option></select>
+        <button class="btn main" onclick="startSelectedLoop()">▶ วนวรรคที่เลือก</button>
+        <button class="btn" onclick="stopTTS()">■ หยุด</button>
+      </div>
+      <div id="ttsStatus" class="status"></div>
+    </div>
+  </section>
+</div>
+<script>
+const DATA=[
+['คำขอบรรพชา — บทเปิด',`อุกาสะ วันทามิ ภันเต,\nสัพพัง อะปะราธัง ขะมะถะ เม ภันเต,\nมะยา กะตัง ปุญญัง สามินา อะนุโมทิตัพพัง,\nสามินา กะตัง ปุญญัง มัยหัง ทาตัพพัง,\nสาธุ สาธุ อะนุโมทามิ,\nอุกาสะ การุญญัง กัตวา ปัพพัชชัง เทถะ เม ภันเต.`],
+['ขอบรรพชา 3 รอบ',`อะหัง ภันเต ปัพพัชชัง ยาจามิ.\nทุติยัมปิ อะหัง ภันเต ปัพพัชชัง ยาจามิ.\nตะติยัมปิ อะหัง ภันเต ปัพพัชชัง ยาจามิ.`],
+['ขอบวชด้วยผ้ากาสาวะ',`สัพพะทุกขะ นิสสะระณะ นิพพานะ สัจฉิกะระณัตถายะ,\nอิมัง กาสาวัง คะเหตวา ปัพพาเชถะ มัง ภันเต,\nอะนุกัมปัง อุปาทายะ.`],
+['หลังพระรับผ้าไตร',`สัพพะทุกขะ นิสสะระณะ นิพพานะ สัจฉิกะระณัตถายะ,\nเอตัง กาสาวัง ทัตวา ปัพพาเชถะ มัง ภันเต,\nอะนุกัมปัง อุปาทายะ.`],
+['มูลกัมมัฏฐาน 5',`เกสา โลมา นะขา ทันตา ตะโจ.\nตะโจ ทันตา นะขา โลมา เกสา.`],
+['ขอสรณะและศีล',`อุกาสะ การุญญัง กัตวา ติสะระเณนะ สะหะ สีลานิ เทถะ เม ภันเต.\nอะหัง ภันเต สะระณะสีลัง ยาจามิ.\nทุติยัมปิ อะหัง ภันเต สะระณะสีลัง ยาจามิ.\nตะติยัมปิ อะหัง ภันเต สะระณะสีลัง ยาจามิ.`],
+['ไตรสรณคมน์',`พุทธัง สะระณัง คัจฉามิ\nธัมมัง สะระณัง คัจฉามิ\nสังฆัง สะระณัง คัจฉามิ\nทุติยัมปิ พุทธัง สะระณัง คัจฉามิ\nทุติยัมปิ ธัมมัง สะระณัง คัจฉามิ\nทุติยัมปิ สังฆัง สะระณัง คัจฉามิ\nตะติยัมปิ พุทธัง สะระณัง คัจฉามิ\nตะติยัมปิ ธัมมัง สะระณัง คัจฉามิ\nตะติยัมปิ สังฆัง สะระณัง คัจฉามิ`],
+['ขอนิสสัย / ขอพระอุปัชฌาย์',`อะหัง ภันเต นิสสะยัง ยาจามิ.\nทุติยัมปิ อะหัง ภันเต นิสสะยัง ยาจามิ.\nตะติยัมปิ อะหัง ภันเต นิสสะยัง ยาจามิ.\nอุปัชฌาโย เม ภันเต โหหิ.\nอัชชะตัคเคทานิ เถโร มัยหัง ภาโร,\nอะหัมปิ เถรัสสะ ภาโร.`],
+['อันตรายิกธรรม — 5 โรค',`กุฏฐัง? — นัตถิ ภันเต\nคัณโฑ? — นัตถิ ภันเต\nกิลาโส? — นัตถิ ภันเต\nโสโส? — นัตถิ ภันเต\nอะปะมาโร? — นัตถิ ภันเต`],
+['อันตรายิกธรรม — 8 คุณสมบัติ',`มะนุสโสสิ? — อามะ ภันเต\nปุริโสสิ? — อามะ ภันเต\nภุชิสโสสิ? — อามะ ภันเต\nอะนะโณสิ? — อามะ ภันเต\nนะสิ ราชะภะโฏ? — อามะ ภันเต\nอะนุญญาโตสิ มาตาปิตูหิ? — อามะ ภันเต\nปะริปุณณะวีสะติวัสโสสิ? — อามะ ภันเต\nปะริปุณณันเต ปัตตะจีวะรัง? — อามะ ภันเต`],
+['คำขออุปสมบท',`สังฆัม ภันเต อุปะสัมปะทัง ยาจามิ,\nอุลลุมปะตุ มัง ภันเต,\nสังโฆ อะนุกัมปัง อุปาทายะ.\nทุติยัมปิ ภันเต สังฆัง อุปะสัมปะทัง ยาจามิ,\nอุลลุมปะตุ มัง ภันเต,\nสังโฆ อะนุกัมปัง อุปาทายะ.\nตะติยัมปิ ภันเต สังฆัง อุปะสัมปะทัง ยาจามิ,\nอุลลุมปะตุ มัง ภันเต,\nสังโฆ อะนุกัมปัง อุปาทายะ.`]
+];
+let currentSection=0,currentLine=0,player=null,a=0,b=0,abLoop=false,abTimer=null,ttsStop=true;
+function renderSections(){sections.innerHTML=DATA.map((x,i)=>`<div class="section ${i===currentSection?'active':''}" onclick="pickSection(${i})"><b>${i+1}. ${x[0]}</b><div class="muted small">${x[1].split('\n').length} วรรค</div></div>`).join('');renderLines()}
+function renderLines(){let arr=DATA[currentSection][1].split('\n');lines.innerHTML=arr.map((t,i)=>`<div class="line ${i===currentLine?'active':''}" onclick="pickLine(${i})"><div class="n">${i+1}</div><div class="lineText">${t}</div><button class="btn" onclick="event.stopPropagation();pickLine(${i});startSelectedLoop()">🔁 วน</button></div>`).join('')}
+function pickSection(i){currentSection=i;currentLine=0;renderSections()}
+function pickLine(i){currentLine=i;renderLines()}
+function selectedText(){return DATA[currentSection][1].split('\n')[currentLine]}
+function fmt(s){s=Math.max(0,s||0);let m=Math.floor(s/60),sec=(s%60).toFixed(1).padStart(4,'0');return `${m}:${sec}`}
+function setA(){if(!player)return;a=player.getCurrentTime();aText.textContent=fmt(a);if(b<=a){b=a+4;bText.textContent=fmt(b)}}
+function setB(){if(!player)return;b=player.getCurrentTime();if(b<a)[a,b]=[b,a];aText.textContent=fmt(a);bText.textContent=fmt(b)}
+function jumpA(){if(player){player.seekTo(a,true);player.playVideo()}}
+function toggleAB(){abLoop=!abLoop;loopBtn.textContent=abLoop?'🔁 Loop ON':'🔁 Loop OFF';loopBtn.classList.toggle('on',abLoop);if(abLoop){if(b<=a)b=a+4;jumpA();startABWatcher()}else stopABWatcher()}
+function startABWatcher(){stopABWatcher();abTimer=setInterval(()=>{if(player&&abLoop&&player.getCurrentTime()>=b-.08){player.seekTo(a,true);player.playVideo()}},100)}
+function stopABWatcher(){if(abTimer){clearInterval(abTimer);abTimer=null}}
+function setVideoRate(){if(player&&player.setPlaybackRate)player.setPlaybackRate(Number(ytRate.value))}
+function onYouTubeIframeAPIReady(){player=new YT.Player('player',{videoId:'JroJer67uIY',playerVars:{playsinline:1,rel:0},events:{onReady:()=>{b=6;bText.textContent=fmt(b)}}})}
+function stopTTS(){ttsStop=true;if('speechSynthesis'in window)speechSynthesis.cancel();ttsStatus.textContent=''}
+function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
+function utter(text){return new Promise(resolve=>{let u=new SpeechSynthesisUtterance(text.replace(/—/g,' '));u.lang='th-TH';u.rate=Number(ttsRate.value);u.pitch=.92;u.onend=resolve;u.onerror=resolve;speechSynthesis.speak(u)})}
+async function startSelectedLoop(){stopTTS();ttsStop=false;let text=selectedText(),limit=Number(repeatCount.value),pause=Number(pauseSec.value)*1000,round=0;while(!ttsStop&&(limit===0||round<limit)){round++;ttsStatus.textContent=`กำลังฝึกวรรค ${currentLine+1} · รอบ ${round}${limit?'/'+limit:' · ∞'} — ฟังแล้วพูดตาม`;await utter(text);if(ttsStop)break;ttsStatus.textContent=`ตาคุณพูด — เว้น ${pauseSec.value} วิ`;await sleep(pause)}if(!ttsStop)ttsStatus.textContent='ครบแล้ว ✓'}
+renderSections();
+if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+</script>
+<script src="https://www.youtube.com/iframe_api"></script>
+</body>
+</html>
