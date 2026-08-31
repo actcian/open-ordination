@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>เตรียมบวช — จำด้วยความเข้าใจ</title>
+<style>
+:root{--bg:#f7f3eb;--card:#fffdf8;--ink:#1d1b18;--muted:#706a62;--line:#e6ded2;--accent:#7b4f21;--accent2:#b68452;--ok:#246b45;--warn:#8d5a16;--shadow:0 10px 30px rgba(48,34,18,.08)}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}button{font:inherit} .wrap{max-width:900px;margin:auto;padding:18px}.hero{background:linear-gradient(135deg,#fffdf8,#efe5d6);border:1px solid var(--line);border-radius:24px;padding:26px;box-shadow:var(--shadow)}h1{margin:0 0 6px;font-size:30px}h2{margin-top:0}.muted{color:var(--muted)}.tabs{display:flex;gap:8px;overflow:auto;margin:16px 0}.tab{border:1px solid var(--line);background:var(--card);padding:10px 15px;border-radius:999px;white-space:nowrap;cursor:pointer}.tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;margin:14px 0;box-shadow:var(--shadow)}.scene{display:grid;grid-template-columns:48px 1fr;gap:14px;align-items:start}.num{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#ead9c2;color:var(--accent);font-weight:800}.pali{font-size:22px;font-weight:700;color:var(--accent);background:#faf3e8;padding:14px;border-radius:14px;margin:10px 0}.meaning{font-size:18px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}button.primary{background:var(--accent);color:white;border:0;border-radius:12px;padding:11px 16px;cursor:pointer}button.secondary{background:white;color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:11px 16px;cursor:pointer}.progress{height:10px;background:#e8dfd3;border-radius:999px;overflow:hidden}.bar{height:100%;background:var(--accent2);width:0;transition:.25s}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.mini{border:1px solid var(--line);background:#fffaf2;border-radius:16px;padding:15px;cursor:pointer}.mini.done{border-color:#9cc4aa;background:#f2faf4}.hidden{display:none}.quiz-q{font-size:24px;font-weight:700}.answer{font-size:22px;color:var(--accent);font-weight:700;margin-top:12px}.small{font-size:14px}.footer{text-align:center;color:var(--muted);padding:30px 0}@media(max-width:600px){.wrap{padding:12px}h1{font-size:25px}.hero{padding:20px}.pali{font-size:19px}.meaning{font-size:16px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<section class="hero">
+<h1>เตรียมบวช — จำด้วยความเข้าใจ</h1>
+<div class="muted">ฝึกพิธีบรรพชาและอุปสมบทแบบเข้าใจ flow ก่อน แล้วค่อยจำบท</div>
+<div style="margin-top:18px"><div class="small muted">ความคืบหน้า</div><div class="progress"><div id="bar" class="bar"></div></div><div id="pct" class="small muted" style="margin-top:5px">0%</div></div>
+</section>
+<div class="tabs"><button class="tab active" onclick="showTab('map',this)">🗺️ แผนที่พิธี</button><button class="tab" onclick="showTab('learn',this)">📖 เรียนทีละฉาก</button><button class="tab" onclick="showTab('quiz',this)">🧠 จำลองพิธี</button></div>
+<section id="map" class="panel"><div class="card"><h2>ภาพรวมทั้งพิธี</h2><p>อย่าจำเป็น 3 หน้า ให้จำเป็น “หนังเรื่องหนึ่ง” — เข้า → ขอ → รับไตร → สรณคมน์ → ศีล → ขออุปสมบท → สอบ → กรรมวาจา → จบ</p></div><div id="sceneGrid" class="grid"></div></section>
+<section id="learn" class="panel hidden"><div class="card"><div id="learnContent"></div><div class="actions"><button class="secondary" onclick="prevScene()">← ก่อนหน้า</button><button class="primary" onclick="nextScene()">จำได้แล้ว →</button></div></div></section>
+<section id="quiz" class="panel hidden"><div class="card"><div class="muted">ตอบจากความจำ แล้วกด “เฉลย”</div><div id="quizQ" class="quiz-q" style="margin-top:12px"></div><div id="quizA" class="answer hidden"></div><div class="actions"><button class="primary" onclick="reveal()">เฉลย</button><button class="secondary" onclick="nextQuiz()">ข้อถัดไป</button></div></div></section>
+<div class="footer">เคล็ดลับ: พูดออกเสียง + ปิดข้อความ + ดึงจากความจำ จะจำได้เร็วกว่าการอ่านซ้ำ</div>
+</div>
+<script>
+const scenes=[
+['เข้าเฝ้าพระอุปัชฌาย์','เข้าหาพระอุปัชฌาย์ → กราบ 3 ครั้ง → ตั้งใจขอบรรพชา','“ฉันมาขอบวช” คือความหมายหลักของฉากนี้'],
+['ขอบรรพชา','อะหัง ภันเต ปัพพัชชัง ยาจามิ','ข้าแต่พระคุณเจ้า กระผมขอบรรพชา'],
+['ขอ 3 รอบ','อะหัง ภันเต ปัพพัชชัง ยาจามิ / ทุติยัมปิ... / ตติยัมปิ...','ประโยคเดิม แต่เปลี่ยนตัวบอกครั้งที่ 2 และ 3'],
+['มูลกัมมัฏฐาน 5','เกสา โลมา นขา ทันตา ตโจ','ผม → ขน → เล็บ → ฟัน → หนัง และย้อนกลับ หนัง → ฟัน → เล็บ → ขน → ผม'],
+['ห่มผ้า','นำผ้าไตรไปห่ม → กลับมา → กราบ 3 ครั้ง','จำเป็นภาพการเปลี่ยนจากคนธรรมดาเป็นสามเณร'],
+['ขอสรณคมน์','นะโม ตัสสะ... ×3 → พุทธัง ธัมมัง สังฆัง สะระณัง คัจฉามิ','เข้าถึงพระพุทธ พระธรรม พระสงฆ์เป็นที่พึ่ง'],
+['ไตรสรณคมน์ 3 รอบ','พุทธัง... / ธัมมัง... / สังฆัง... → ทุติยัมปิ → ตติยัมปิ','จำ template เดิม แล้วเปลี่ยนชื่อพระรัตนตรัยและรอบ'],
+['ศีล 10','ไม่ฆ่า → ไม่ขโมย → ไม่เสพเมถุน → ไม่โกหก → ไม่ดื่ม → ไม่กินหลังเที่ยง → ไม่บันเทิง → ไม่แต่ง/ประดับ → ไม่ที่นอนสูงใหญ่ → ไม่รับเงินทอง','จำเป็นเรื่องราว 10 ภาพ ไม่ใช่เลข 1–10'],
+['ขออุปัชฌาย์','อุปัชฌาโย เม ภันเต โหหิ','ขอพระคุณเจ้าเป็นพระอุปัชฌาย์ของผม'],
+['รับบาตรและจีวร','รับบาตร/จีวรตามที่พระอุปัชฌาย์บอก และตอบรับตามจังหวะ','อย่าจำเป็นก้อน ให้จำว่า “พระบอก → เรารับ”'],
+['ออกไปสอบซ้อม','ออกไปยืนตามที่กำหนด → พระอาจารย์ซักถาม','นี่คือการสัมภาษณ์ ไม่ใช่การสวดคนเดียว'],
+['อันตรายิกธรรม','คำถามหลายข้อ → ตอบ นัตถิ ภันเต / อามะ ภันเต ตามเนื้อหา','ฝึกแบบ Q → A จะจำง่ายกว่าท่องคำถามติดกัน'],
+['กลับเข้าสงฆ์','ถูกเรียกกลับ → เข้ามา → คุกเข่า → ประนมมือ → กราบ 3 ครั้ง','เข้าสู่ขั้นขออุปสมบทต่อสงฆ์'],
+['ขออุปสมบท','สังฆัม ภันเต อุปสัมปทัง ยาจามิ','ข้าแต่พระสงฆ์ กระผมขออุปสมบท'],
+['กรรมวาจา','พระสงฆ์ดำเนินกรรมวาจา → ผู้บวชนั่งฟังและตอบรับเมื่อถึงจังหวะ','ช่วงนี้เน้นรู้ว่า “ตอนนี้เราฟัง” ไม่ต้องแทรกบทของตัวเอง'],
+['อนุศาสน์และจบพิธี','พระบอกอนุศาสน์ → อามะ ภันเต → กราบพระอุปัชฌาย์ 3 ครั้ง','ภาพจบ: ได้เป็นพระภิกษุแล้ว']
+];
+let current=0,done=JSON.parse(localStorage.getItem('ordinationDone')||'[]');
+function renderMap(){sceneGrid.innerHTML=scenes.map((s,i)=>`<div class="mini ${done.includes(i)?'done':''}" onclick="goScene(${i})"><b>${i+1}. ${s[0]}</b><div class="small muted">${s[1]}</div></div>`).join('');updateProgress()}
+function goScene(i){current=i;showTab('learn',document.querySelectorAll('.tab')[1]);renderLearn()}
+function renderLearn(){let s=scenes[current];learnContent.innerHTML=`<div class="scene"><div class="num">${current+1}</div><div><h2>${s[0]}</h2><div class="pali">${s[1]}</div><div class="meaning">${s[2]}</div><p class="muted">🎯 วิธีจำ: อย่าท่องประโยคนี้ลอย ๆ ให้ตอบตัวเองว่า <b>“เราอยู่ตรงไหนของพิธี และกำลังทำสิ่งนี้ไปเพื่ออะไร?”</b></p></div></div>`;updateProgress()}
+function nextScene(){if(!done.includes(current))done.push(current);localStorage.setItem('ordinationDone',JSON.stringify(done));current=Math.min(current+1,scenes.length-1);renderLearn();renderMap()}
+function prevScene(){current=Math.max(0,current-1);renderLearn()}
+function updateProgress(){let p=Math.round(done.length/scenes.length*100);bar.style.width=p+'%';pct.textContent=p+'%'}
+function showTab(id,btn){document.querySelectorAll('.panel').forEach(x=>x.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));if(btn)btn.classList.add('active');if(id==='map')renderMap();if(id==='learn')renderLearn();if(id==='quiz')loadQuiz()}
+const quiz=[
+['หลังจากรับผ้าไตรและขอบรรพชาแล้ว ต้องจำบทอะไรเป็นหลัก?','อะหัง ภันเต ปัพพัชชัง ยาจามิ'],
+['เกสา โลมา นขา ทันตา ตโจ หมายถึงอะไร?','ผม → ขน → เล็บ → ฟัน → หนัง'],
+['หลังจากห่มผ้าและกลับมาแล้วเข้าสู่บทอะไร?','ขอสรณคมน์ → นะโม → ไตรสรณคมน์'],
+['ไตรสรณคมน์มีอะไร 3 อย่าง?','พุทธัง → ธัมมัง → สังฆัง'],
+['อุปัชฌาโย เม ภันเต โหหิ หมายถึงอะไร?','ขอพระคุณเจ้าเป็นพระอุปัชฌาย์ของผม'],
+['เมื่อพระถามอันตรายิกธรรม เราควรคิดเป็นอะไร?','Q → A: พระถาม → เราตอบ ไม่ใช่ท่องเป็น paragraph'],
+['สังฆัม ภันเต อุปสัมปทัง ยาจามิ หมายถึงอะไร?','ขออุปสมบทต่อพระสงฆ์'],
+['ช่วงกรรมวาจา หน้าที่หลักของเราคืออะไร?','นั่งฟังและตอบรับเมื่อถึงจังหวะ']
+];let qi=0;function loadQuiz(){quizQ.textContent=quiz[qi][0];quizA.classList.add('hidden');quizA.textContent=quiz[qi][1]}function reveal(){quizA.classList.remove('hidden')}function nextQuiz(){qi=(qi+1)%quiz.length;loadQuiz()}
+renderMap();renderLearn();loadQuiz();
+</script>
+</body>
+</html>
