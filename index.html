@@ -1,131 +1,91 @@
-<!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Open Ordination — ฝึกบทบวช</title><style>:root{--bg:#f7f2e9;--card:#fffdf8;--ink:#211c16;--muted:#746b60;--line:#e4d9ca;--a:#74461f;--soft:#f4e8d8;--ok:#2e7049}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65}.wrap{max-width:920px;margin:auto;padding:14px}.hero,.card{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:0 8px 24px #4b321610}.hero{padding:22px;margin-bottom:12px}.hero h1{margin:0 0 4px;font-size:28px}.muted{color:var(--muted)}.tabs{display:flex;gap:7px;overflow:auto;padding:2px 0 10px;position:sticky;top:0;background:var(--bg);z-index:5}.tab{border:1px solid var(--line);background:var(--card);padding:10px 13px;border-radius:999px;white-space:nowrap}.tab.active{background:var(--a);color:white}.card{padding:18px;margin:12px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}.scene{padding:14px;border:1px solid var(--line);border-radius:16px;background:#fffaf2;cursor:pointer}.scene.done{border-color:#9ac5a9;background:#f2faf4}.num{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--soft);color:var(--a);font-weight:800;margin-right:8px}.pali{white-space:pre-wrap;background:#fbf1e4;border-left:4px solid var(--a);padding:15px;border-radius:12px;font-size:19px;font-weight:650;margin:10px 0}.meaning{background:#f7f7f4;border-radius:12px;padding:12px}.tip{background:#eef6ef;border-radius:12px;padding:12px;margin-top:10px}.actions{display:flex;gap:8px;flex-wrap:wrap}.btn{border:0;border-radius:11px;padding:11px 15px;background:var(--a);color:white}.btn.alt{background:white;color:var(--ink);border:1px solid var(--line)}.progress{height:9px;background:#e8ded1;border-radius:99px;overflow:hidden}.bar{height:100%;background:#b7834f;width:0}.small{font-size:14px}.hide{display:none}.qrow{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}.ans{font-weight:800;color:var(--a)}.reveal{background:white;border:1px dashed #b9a38a;padding:8px 10px;border-radius:9px}.count{font-weight:800;color:var(--a)}@media(max-width:600px){.hero h1{font-size:24px}.pali{font-size:17px}}
-</style></head><body><div class="wrap"><section class="hero"><h1>🪷 ฝึกบวช — จำด้วยความเข้าใจ</h1><div class="muted">แอพนี้แยกให้ชัดว่า <b>“ต้องพูดอะไร”</b> กับ <b>“ต้องเข้าใจอะไร”</b> เพื่อให้คุณไม่ต้องท่องแบบไร้ความหมาย</div><div style="margin-top:14px" class="small">ความคืบหน้า</div><div class="progress"><div id="bar" class="bar"></div></div><div id="pct" class="small muted">0%</div></section><div class="tabs"><button class="tab active" onclick="tab('map',this)">🗺️ Flow</button><button class="tab" onclick="tab('scripts',this)">📜 บทที่ต้องท่อง</button><button class="tab" onclick="tab('quiz',this)">🧠 ทดสอบ</button></div><main id="map"><div class="card"><h2>ภาพใหญ่ก่อนจำ</h2><p><b>รับไตร → ขอบรรพชา → กัมมัฏฐาน → ห่มผ้า → ขอสรณะ/ศีล → เป็นสามเณร → รับบาตร → ขอนิสสัย → บอกบริขาร → ออกสอบ → กลับเข้าสงฆ์ → ขออุปสมบท → ฟังกรรมวาจา → อนุศาสน์ → จบ</b></p><div class="tip">🎯 กฎของแอพ: <b>อ่านความหมายก่อน 1 รอบ → ปิดบท → พูดเอง → เปิดเช็ก</b></div></div><div id="flow" class="grid"></div></main><main id="scripts" class="hide"><div class="card"><h2>📜 บทที่ต้องท่องจริง</h2><p class="muted">นี่คือส่วนที่รอบก่อนหายไป ตอนนี้รวม “บทที่คุณต้องเป็นคนพูด/ตอบ” ไว้เป็นหมวดแล้ว</p><div id="scriptList"></div></div></main><main id="quiz" class="hide"><div class="card"><h2>🧠 ซ้อมแบบวันจริง</h2><p class="muted">ตอบก่อนดูเฉลย ทุกข้อคือบทที่ต้องดึงจากความจำ</p><div id="quizBox"></div><div class="actions" style="margin-top:12px"><button class="btn" onclick="showAns()">เฉลย</button><button class="btn alt" onclick="nextQ()">ข้อต่อไป</button></div></div></main></div><script>
-const scripts=[
-{t:'1. คำขอบรรพชา — บทเปิด',m:'ความหมาย: ขอโอกาสบรรพชา และขอให้รับผ้าไตร',x:`อุกาสะ วันทามิ ภันเต,
+<!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Open Ordination</title><style>:root{--b:#f7f2e9;--c:#fffdf8;--i:#211c16;--m:#71695f;--l:#e4d9ca;--a:#74461f;--s:#fbf1e4;--g:#edf6ef}*{box-sizing:border-box}body{margin:0;background:var(--b);color:var(--i);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65}.w{max-width:900px;margin:auto;padding:14px}.hero,.card{background:var(--c);border:1px solid var(--l);border-radius:20px;padding:18px;margin:12px 0}.hero h1{margin:0}.muted{color:var(--m)}.tabs{display:flex;gap:7px;overflow:auto;position:sticky;top:0;background:var(--b);padding:8px 0;z-index:3}.tab,.btn{border:1px solid var(--l);border-radius:999px;padding:10px 14px;background:var(--c);white-space:nowrap}.tab.on,.btn.main{background:var(--a);color:#fff}.hide{display:none}.pali{white-space:pre-wrap;background:var(--s);border-left:4px solid var(--a);padding:14px;border-radius:12px;font-size:18px;font-weight:650}.trans,.easy,.words{padding:12px;border-radius:12px;margin-top:9px}.trans{background:#f3f3ef}.easy{background:var(--g)}.words{background:#f5efe8;font-size:14px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}.mini{background:var(--c);border:1px solid var(--l);border-radius:15px;padding:13px;cursor:pointer}.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.progress{height:9px;background:#e5dbcf;border-radius:99px;overflow:hidden}.bar{height:100%;background:#aa7746}.cheat{font-size:15px}.cheat b{color:var(--a)}h2{margin-bottom:5px}@media(max-width:600px){.hero h1{font-size:24px}.pali{font-size:16.5px}}</style></head><body><div class="w"><div class="hero"><h1>🪷 Open Ordination</h1><div class="muted">เข้าใจ → เห็นความหมาย → ปิดบท → พูดเอง → เช็ก</div><div class="progress"><div id="bar" class="bar"></div></div><small id="pct"></small></div><div class="tabs"><button class="tab on" onclick="show('cheat',this)">⚡ Cheat sheet</button><button class="tab" onclick="show('learn',this)">📖 เข้าใจ + ท่องจริง</button><button class="tab" onclick="show('test',this)">🧠 ซ้อม</button></div><main id="cheat"><div class="card"><h2>พิธีทั้งเรื่องในหน้าเดียว</h2><p><b>ขอบรรพชา → รับผ้า/กัมมัฏฐาน → ห่มผ้า → ขอสรณะและศีล → ไตรสรณคมน์ → ศีล 10 → ขอนิสสัย → รับบาตรจีวร → ออกสอบ → อันตรายิกธรรม → กลับเข้าสงฆ์ → ขออุปสมบท → สอบซ้ำ → ฟังกรรมวาจา → อนุศาสน์</b></p><div id="cheatList" class="grid"></div></div></main><main id="learn" class="hide"><div class="card"><h2>บทที่ต้องท่อง + คำแปล</h2><p class="muted">คำแปลด้านล่างเน้นให้เข้าใจความหมายของบท ไม่ใช่การแปลศัพท์แบบไวยากรณ์ทุกคำ และให้ยึดบทของวัด/พระอุปัชฌาย์เป็นหลักหากต่างกัน</p><div id="list"></div></div></main><main id="test" class="hide"><div class="card"><h2>ซ้อมดึงจากความจำ</h2><div id="q"></div><div class="actions"><button class="btn main" onclick="answer()">ดูเฉลย</button><button class="btn" onclick="next()">ข้อต่อไป</button></div></div></main></div><script>
+const S=[
+{t:'คำขอบรรพชา — บทเปิด',p:`อุกาสะ วันทามิ ภันเต,
 สัพพัง อะปะราธัง ขะมะถะ เม ภันเต,
 มะยา กะตัง ปุญญัง สามินา อะนุโมทิตัพพัง,
 สามินา กะตัง ปุญญัง มัยหัง ทาตัพพัง,
 สาธุ สาธุ อะนุโมทามิ,
-อุกาสะ การุญญัง กัตวา ปัพพัชชัง เทถะ เม ภันเต.`},
-{t:'2. ขอปัพพัชชา 3 รอบ',m:'จำเป็น template เดิม: รอบ 1 → ทุติยัมปิ → ตะติยัมปิ',x:`อะหัง ภันเต ปัพพัชชัง ยาจามิ.
+อุกาสะ การุญญัง กัตวา ปัพพัชชัง เทถะ เม ภันเต.`,tr:'ขอโอกาส ข้าพเจ้าขอไหว้ท่าน ขอท่านโปรดยกโทษความผิดทั้งปวงแก่ข้าพเจ้า บุญที่ข้าพเจ้าทำแล้วขอท่านอนุโมทนา บุญที่ท่านทำแล้วขอจงมีส่วนแก่ข้าพเจ้า ข้าพเจ้าขออนุโมทนา และขอท่านโปรดกรุณาให้บรรพชาแก่ข้าพเจ้า',e:'ขอขมา → แบ่งปัน/อนุโมทนาบุญ → ขอให้ท่านบวชเรา',w:'อุกาสะ = ขอโอกาส · วันทามิ = ข้าพเจ้าไหว้ · ขมถ เม = โปรดยกโทษแก่ข้าพเจ้า · การุญญัง = ความกรุณา · ปัพพัชชัง = บรรพชา · เทถะ = โปรดให้'},
+{t:'ขอบรรพชา 3 รอบ',p:`อะหัง ภันเต ปัพพัชชัง ยาจามิ.
 ทุติยัมปิ อะหัง ภันเต ปัพพัชชัง ยาจามิ.
-ตะติยัมปิ อะหัง ภันเต ปัพพัชชัง ยาจามิ.`},
-{t:'3. บทขอให้บวชด้วยผ้ากาสาวะ — 3 จบ',m:'ภาพในหัว: “รับผ้า → ขอให้บวช เพื่อพ้นทุกข์/ทำพระนิพพานให้แจ้ง”',x:`สัพพะทุกขะ นิสสะระณะ นิพพานะ สัจฉิกะระณัตถายะ,
+ตะติยัมปิ อะหัง ภันเต ปัพพัชชัง ยาจามิ.`,tr:'ข้าแต่พระคุณเจ้า ข้าพเจ้าขอบรรพชา; แม้ครั้งที่สอง...; แม้ครั้งที่สาม...',e:'ประโยคเดียว 3 ครั้ง เปลี่ยนแค่ “ครั้งที่สอง/สาม”',w:'อะหัง = ข้าพเจ้า · ภันเต = ข้าแต่ท่านผู้เจริญ · ยาจามิ = ข้าพเจ้าขอ · ทุติยัมปิ = แม้ครั้งที่ 2 · ตะติยัมปิ = แม้ครั้งที่ 3'},
+{t:'ขอบวชด้วยผ้ากาสาวะ',p:`สัพพะทุกขะ นิสสะระณะ นิพพานะ สัจฉิกะระณัตถายะ,
 อิมัง กาสาวัง คะเหตวา ปัพพาเชถะ มัง ภันเต,
-อะนุกัมปัง อุปาทายะ.`},
-{t:'4. บทหลังพระรับผ้าไตร — 3 จบ',m:'เหมือนบทก่อน แต่เปลี่ยน “อิมัง...คะเหตวา” เป็น “เอตัง...ทัตวา”',x:`สัพพะทุกขะ นิสสะระณะ นิพพานะ สัจฉิกะระณัตถายะ,
+อะนุกัมปัง อุปาทายะ.`,tr:'เพื่อออกจากทุกข์ทั้งปวง และเพื่อทำพระนิพพานให้แจ้ง ขอท่านรับผ้ากาสาวะนี้แล้วบรรพชาให้แก่ข้าพเจ้า ด้วยความอนุเคราะห์',e:'เป้าหมาย = พ้นทุกข์/นิพพาน → วิธี = รับผ้านี้ → ขอ = บวชให้ผม',w:'สัพพะทุกขะ = ทุกข์ทั้งปวง · นิสสะระณะ = การออกไป · นิพพานะ = นิพพาน · อิมัง = นี้ · กาสาวัง = ผ้ากาสาวะ · อะนุกัมปัง = ความอนุเคราะห์'},
+{t:'หลังพระรับผ้าไตร',p:`สัพพะทุกขะ นิสสะระณะ นิพพานะ สัจฉิกะระณัตถายะ,
 เอตัง กาสาวัง ทัตวา ปัพพาเชถะ มัง ภันเต,
-อะนุกัมปัง อุปาทายะ.`},
-{t:'5. มูลกัมมัฏฐาน',m:'ผม → ขน → เล็บ → ฟัน → หนัง แล้วทวนกลับ',x:`เกสา โลมา นะขา ทันตา ตะโจ. (อนุโลม)
-ตะโจ ทันตา นะขา โลมา เกสา. (ปฏิโลม)`},
-{t:'6. ขอสรณะและศีล',m:'ความหมาย: ขอพระอาจารย์ให้สรณะและศีล',x:`อุกาสะ การุญญัง กัตวา ติสะระเณนะ สะหะ สีลานิ เทถะ เม ภันเต.
-
+อะนุกัมปัง อุปาทายะ.`,tr:'เพื่อออกจากทุกข์ทั้งปวงและทำพระนิพพานให้แจ้ง ขอท่านมอบผ้ากาสาวะนั้นแก่ข้าพเจ้า แล้วบรรพชาให้ข้าพเจ้า ด้วยความอนุเคราะห์',e:'บทก่อน = “รับผ้านี้” บทนี้ = “ให้ผ้านั้นกลับมาแล้วบวชผม”',w:'เอตัง = นั้น · ทัตวา = ให้แล้ว · ปัพพาเชถะ = โปรดให้บรรพชา · มัง = แก่ข้าพเจ้า'},
+{t:'มูลกัมมัฏฐาน 5',p:`เกสา โลมา นะขา ทันตา ตะโจ.
+ตะโจ ทันตา นะขา โลมา เกสา.`,tr:'ผม ขน เล็บ ฟัน หนัง — แล้วพิจารณาย้อนกลับ หนัง ฟัน เล็บ ขน ผม',e:'มองกายตามจริงเป็นส่วน ๆ ไม่ใช่ “ตัวเรา” ก้อนเดียว',w:'เกสา = ผม · โลมา = ขน · นะขา = เล็บ · ทันตา = ฟัน · ตะโจ = หนัง'},
+{t:'ขอสรณะและศีล',p:`อุกาสะ การุญญัง กัตวา ติสะระเณนะ สะหะ สีลานิ เทถะ เม ภันเต.
 อะหัง ภันเต สะระณะสีลัง ยาจามิ.
 ทุติยัมปิ อะหัง ภันเต สะระณะสีลัง ยาจามิ.
-ตะติยัมปิ อะหัง ภันเต สะระณะสีลัง ยาจามิ.`},
-{t:'7. นะโม + ไตรสรณคมน์',m:'นะโม 3 จบ → พระบอก “ยะมะหัง...” → เราตอบ “อามะ ภันเต” → กล่าว 3 รอบ',x:`นะโม ตัสสะ ภะคะวะโต อะระหะโต สัมมาสัมพุทธัสสะ. (3 จบ)
+ตะติยัมปิ อะหัง ภันเต สะระณะสีลัง ยาจามิ.`,tr:'ขอโอกาส ขอท่านโปรดกรุณาให้ศีลพร้อมด้วยไตรสรณคมน์แก่ข้าพเจ้า ข้าแต่พระคุณเจ้า ข้าพเจ้าขอสรณะและศีล (กล่าว 3 ครั้ง)',e:'ขอ “ที่พึ่ง + กติกาชีวิต” ก่อนเริ่มชีวิตสามเณร',w:'ติสะระณะ = สรณะสาม · สะหะ = พร้อมกับ · สีลานิ = ศีลทั้งหลาย · สะระณะสีลัง = สรณะและศีล'},
+{t:'นะโม + ไตรสรณคมน์',p:`นะโม ตัสสะ ภะคะวะโต อะระหะโต สัมมาสัมพุทธัสสะ. (3 จบ)
 
-พุทธัง สะระณัง คัจฉามิ,
-ธัมมัง สะระณัง คัจฉามิ,
-สังฆัง สะระณัง คัจฉามิ.
+พุทธัง สะระณัง คัจฉามิ
+ธัมมัง สะระณัง คัจฉามิ
+สังฆัง สะระณัง คัจฉามิ
 
-ทุติยัมปิ พุทธัง สะระณัง คัจฉามิ,
-ทุติยัมปิ ธัมมัง สะระณัง คัจฉามิ,
-ทุติยัมปิ สังฆัง สะระณัง คัจฉามิ.
-
-ตะติยัมปิ พุทธัง สะระณัง คัจฉามิ,
-ตะติยัมปิ ธัมมัง สะระณัง คัจฉามิ,
-ตะติยัมปิ สังฆัง สะระณัง คัจฉามิ.
-
-ตอบพระ: อามะ ภันเต.`},
-{t:'8. ศีล 10',m:'จำ “ภาพ” 10 ภาพก่อน แล้วค่อยผูกบาลี: ฆ่า → ขโมย → เมถุน → โกหก → เหล้า → หลังเที่ยง → บันเทิง → ประดับ → ที่นอนสูง → เงินทอง',x:`1. ปาณาติปาตา เวระมะณี สิกขาปะทัง สะมาทิยามิ.
-2. อะทินนาทานา เวระมะณี สิกขาปะทัง สะมาทิยามิ.
-3. อะพรัหมะจะริยา เวระมะณี สิกขาปะทัง สะมาทิยามิ.
-4. มุสาวาทา เวระมะณี สิกขาปะทัง สะมาทิยามิ.
-5. สุรา เมระยะ มัชชะ ปะมาทัฏฐานา เวระมะณี สิกขาปะทัง สะมาทิยามิ.
-6. วิกาละโภชะนา เวระมะณี สิกขาปะทัง สะมาทิยามิ.
-7. นัจจะ คีตะ วาทิตะ วิสูกะทัสสะนา เวระมะณี สิกขาปะทัง สะมาทิยามิ.
-8. มาลา คันธะ วิเลปะนะ ธาระณะ มัณฑะนะ วิภูสะนัฏฐานา เวระมะณี สิกขาปะทัง สะมาทิยามิ.
-9. อุจจาสะยะนะ มะหาสะยะนา เวระมะณี สิกขาปะทัง สะมาทิยามิ.
-10. ชาตะรูปะ ระชะตะ ปะฏิคคะหะณา เวระมะณี สิกขาปะทัง สะมาทิยามิ.
-
-อิมานิ ทะสะ สิกขาปะทานิ สะมาทิยามิ. (3 จบ)`},
-{t:'9. คำนิสสัย — ขออุปัชฌาย์',m:'ภาพ: “ตอนนี้เป็นสามเณรแล้ว → ขอพึ่งอุปัชฌาย์”',x:`อุกาสะ การุญญัง กัตวา นิสสะยัง เทถะ เม ภันเต.
-
-อะหัง ภันเต นิสสะยัง ยาจามิ.
+ทุติยัมปิ พุทธัง... / ธัมมัง... / สังฆัง...
+ตะติยัมปิ พุทธัง... / ธัมมัง... / สังฆัง...`,tr:'ขอนอบน้อมแด่พระผู้มีพระภาค พระอรหันต์ ผู้ตรัสรู้ชอบด้วยพระองค์เอง ข้าพเจ้าถึงพระพุทธ พระธรรม พระสงฆ์เป็นสรณะ — แล้วกล่าวซ้ำเป็นครั้งที่ 2 และ 3',e:'พุทธ = ครู/ผู้ตื่น · ธรรม = คำสอน/ความจริง · สงฆ์ = ผู้ปฏิบัติดี → ทั้งสามคือที่พึ่ง',w:'นะโม = ความนอบน้อม · สะระณัง = ที่พึ่ง · คัจฉามิ = ข้าพเจ้าไปถึง/ยึดเป็นที่พึ่ง'},
+{t:'ศีล 10',p:`1 ปาณาติปาตา เวระมะณี สิกขาปะทัง สะมาทิยามิ
+2 อะทินนาทานา เวระมะณี สิกขาปะทัง สะมาทิยามิ
+3 อะพรัหมะจะริยา เวระมะณี สิกขาปะทัง สะมาทิยามิ
+4 มุสาวาทา เวระมะณี สิกขาปะทัง สะมาทิยามิ
+5 สุราเมระยะมัชชะปะมาทัฏฐานา เวระมะณี สิกขาปะทัง สะมาทิยามิ
+6 วิกาละโภชะนา เวระมะณี สิกขาปะทัง สะมาทิยามิ
+7 นัจจะคีตะวาทิตะวิสูกะทัสสะนา เวระมะณี สิกขาปะทัง สะมาทิยามิ
+8 มาลาคันธะวิเลปะนะธาระณะมัณฑะนะวิภูสะนัฏฐานา เวระมะณี สิกขาปะทัง สะมาทิยามิ
+9 อุจจาสะยะนะมะหาสะยะนา เวระมะณี สิกขาปะทัง สะมาทิยามิ
+10 ชาตะรูปราชะตะปะฏิคคะหะณา เวระมะณี สิกขาปะทัง สะมาทิยามิ`,tr:'ข้าพเจ้าสมาทานสิกขาบท งดเว้นจาก: 1 ฆ่าสัตว์ 2 ถือเอาของที่เขาไม่ได้ให้ 3 การประพฤติไม่ใช่พรหมจรรย์ 4 พูดเท็จ 5 ของมึนเมา 6 บริโภคอาหารในเวลาวิกาล 7 ฟ้อนรำ ขับร้อง ดนตรี และการดูมหรสพ 8 ดอกไม้ ของหอม เครื่องทา/ประดับตกแต่ง 9 ที่นั่งที่นอนสูงใหญ่ 10 รับทองและเงิน',e:'จำเป็นหนัง 10 ภาพ: ฆ่า → ขโมย → เพศ → โกหก → เมา → หลังเที่ยง → บันเทิง → แต่งตัว → เตียงหรู → เงิน',w:'เวระมะณี = เว้นจาก · สิกขาปะทัง = ข้อฝึก · สะมาทิยามิ = ข้าพเจ้าสมาทาน'},
+{t:'ขอนิสสัย / ขอพระอุปัชฌาย์',p:`อะหัง ภันเต นิสสะยัง ยาจามิ.
 ทุติยัมปิ อะหัง ภันเต นิสสะยัง ยาจามิ.
 ตะติยัมปิ อะหัง ภันเต นิสสะยัง ยาจามิ.
-
-อุปัชฌาโย เม ภันเต โหหิ. (3 ครั้ง)
-
-จัชซะตัคเค ทานิเถโร มัยหัง ภาโร,
-อะหัมปิ เถรัสสะ ภาโร. (3 ครั้ง)`},
-{t:'10. รับคำพระอุปัชฌาย์',m:'พระพูด → เรารับ “สัมปะฏิจฉามิ” 3 ครั้ง',x:`ปฏิรูปัง → อุกาสะ สัมปะฏิจฉามิ.
-โอปายิกัง → สัมปะฏิจฉามิ.
-ปาสาทิเกนะ สัมปาเทหิ → สัมปะฏิจฉามิ.
-
-พระบอกฉายา/โอวาท → เราตอบ: อามะ ภันเต.`},
-{t:'11. รับคำบอกบาตรจีวร',m:'พระบอกของ 4 อย่าง → เราตอบ “อามะ ภันเต” ทุกครั้ง',x:`อะยันเต ปัตโต → อามะ ภันเต.
-อะยัง สังฆาฏิ → อามะ ภันเต.
-อะยัง อุตตะราสังโค → อามะ ภันเต.
-อะยัง อันตะระวาสะโก → อามะ ภันเต.`},
-{t:'12. ออกสอบ — คำถาม 13 + ชื่อ',m:'5 ข้อแรกตอบ “นัตถิ” / 8 ข้อต่อมาตอบ “อามะ” แล้วตอบชื่อของเราและอุปัชฌาย์',x:`กุฏฐัง → นัตถิ ภันเต.
-คัณโฑ → นัตถิ ภันเต.
-กิลาโส → นัตถิ ภันเต.
-โสโส → นัตถิ ภันเต.
-อะปะมาโร → นัตถิ ภันเต.
-
-มะนุสโสสิ๊ → อามะ ภันเต.
-ปุริโสสิ๊ → อามะ ภันเต.
-ภุชิสโสสิ๊ → อามะ ภันเต.
-อะนะโณสิ๊ → อามะ ภันเต.
-นะสิ๊ ราชะภะโฏ → อามะ ภันเต.
-อะนุญญาโตสิ๊ มาตาปิตูหิ → อามะ ภันเต.
-ปะริปุณณะวีสะติวัสโสสิ๊ → อามะ ภันเต.
-ปะริปุณณันเต ปัตตะจีวะรัง → อามะ ภันเต.
-
-กินนาโมสิ → อะหัง ภันเต [ฉายาของเรา] นามะ.
-โก นามะ เต อุปัชฌาโย → อุปัชฌาโย เม ภันเต อายัสมา [ฉายาอุปัชฌาย์] นามะ.`},
-{t:'13. ขออุปสมบทต่อสงฆ์ — 3 รอบ',m:'ภาพ: กลับเข้าสงฆ์ → กราบ → ขอให้สงฆ์อุปสมบท',x:`สังฆัม ภันเต อุปะสัมปะทัง ยาจามิ,
-อุลลุมปะตุ มัง ภันเต สังโฆ,
-อะนุกัมปัง อุปาทายะ.
+อุปัชฌาโย เม ภันเต โหหิ. (3 จบ)
+อัชชะตัคเคทานิ เถโร มัยหัง ภาโร,
+อะหัมปิ เถรัสสะ ภาโร. (3 จบ)`,tr:'ข้าแต่พระคุณเจ้า ข้าพเจ้าขอนิสัย (ขออยู่ในความดูแล) ขอท่านจงเป็นพระอุปัชฌาย์ของข้าพเจ้า ตั้งแต่วันนี้เป็นต้นไป พระเถระเป็นภาระของข้าพเจ้า และข้าพเจ้าก็เป็นภาระของพระเถระ',e:'พูดง่าย ๆ = “ผมขอฝากตัวเป็นศิษย์ และให้เราดูแลรับผิดชอบกัน”',w:'นิสสะยัง = การอาศัย/อยู่ในปกครอง · อุปัชฌาโย = อุปัชฌาย์ · เม = ของข้าพเจ้า · โหหิ = ขอจงเป็น · ภาโร = ภาระ/ความรับผิดชอบ'},
+{t:'บาตรและจีวร',p:`อะยัง เต ปัตโต — อามะ ภันเต
+อะยัง สังฆาฏิ — อามะ ภันเต
+อะยัง อุตตะราสังโค — อามะ ภันเต
+อะยัง อันตะระวาสะโก — อามะ ภันเต`,tr:'นี่บาตรของเธอใช่ไหม — ใช่ครับท่าน / นี่ผ้าสังฆาฏิ... / นี่จีวร... / นี่สบง... — ใช่ครับท่าน',e:'พระชี้ของทีละชิ้น เราแค่ยืนยันว่า “ใช่ครับท่าน”',w:'อะยัง = นี้ · เต = ของเธอ · ปัตโต = บาตร · สังฆาฏิ = ผ้าสังฆาฏิ · อุตตะราสังโค = จีวร · อันตะระวาสะโก = สบง · อามะ = ใช่'},
+{t:'อันตรายิกธรรม — 5 ข้อแรก',p:`กุฏฐัง? — นัตถิ ภันเต
+คัณโฑ? — นัตถิ ภันเต
+กิลาโส? — นัตถิ ภันเต
+โสโส? — นัตถิ ภันเต
+อะปะมาโร? — นัตถิ ภันเต`,tr:'เป็นโรคเรื้อนไหม? / ฝีไหม? / โรคกลากหรือโรคผิวหนังร้ายแรงไหม? / วัณโรคหรือโรคผอมแห้งไหม? / ลมบ้าหมูไหม? — ไม่มีครับท่าน',e:'5 โรค → คำตอบเดียว “ไม่มีครับท่าน”',w:'นัตถิ = ไม่มี · ภันเต = ข้าแต่ท่าน'},
+{t:'อันตรายิกธรรม — 8 ข้อถัดไป',p:`มะนุสโสสิ? — อามะ ภันเต
+ปุริโสสิ? — อามะ ภันเต
+ภุชิสโสสิ? — อามะ ภันเต
+อะนะโณสิ? — อามะ ภันเต
+นะสิ ราชะภะโฏ? — อามะ ภันเต
+อะนุญญาโตสิ มาตาปิตูหิ? — อามะ ภันเต
+ปะริปุณณะวีสะติวัสโสสิ? — อามะ ภันเต
+ปะริปุณณันเต ปัตตะจีวะรัง? — อามะ ภันเต`,tr:'เป็นมนุษย์หรือ? เป็นชายหรือ? เป็นไทแก่ตนหรือ? ไม่มีหนี้หรือ? ไม่ใช่ข้าราชการ/ราชภัฏผู้ติดพันหน้าที่หรือ? บิดามารดาอนุญาตแล้วหรือ? อายุครบ 20 ปีหรือ? บาตรและจีวรครบหรือ? — ใช่ครับท่าน',e:'8 คุณสมบัติ → ตอบ “ใช่ครับท่าน” ทั้งหมด แต่ข้อ “นะสิ ราชะภะโฏ” รูปคำถามมีความหมายเชิง “ไม่ได้เป็น...ใช่ไหม”',w:'มะนุสโส = มนุษย์ · ปุริโส = บุรุษ · ภุชิสโส = ผู้เป็นไท · อะนะโณ = ผู้ไม่มีหนี้ · มาตาปิตูหิ = จากมารดาบิดา · วีสะติ = ยี่สิบ'},
+{t:'ชื่อเรา + ชื่อพระอุปัชฌาย์',p:`กินนาโมสิ? — อะหัง ภันเต [ฉายา] นามะ.
+โก นามะ เต อุปัชฌาโย? — อุปัชฌาโย เม ภันเต อายัสมา [ฉายาพระอุปัชฌาย์] นามะ.`,tr:'เธอชื่ออะไร? — ข้าแต่พระคุณเจ้า ข้าพเจ้าชื่อ... / พระอุปัชฌาย์ของเธอชื่ออะไร? — พระอุปัชฌาย์ของข้าพเจ้าชื่อพระ... ผู้มีอายุ',e:'นี่คือช่องเดียวที่ต้องใส่ข้อมูลจริงของวันบวช อย่าเดา ให้รับจากพระอาจารย์',w:'กินนาโมสิ = ชื่ออะไร · โก นามะ = ชื่ออะไร/ใครชื่อ · อายัสมา = ท่านผู้มีอายุ · นามะ = ชื่อว่า'},
+{t:'คำขออุปสมบท 3 รอบ',p:`สังฆัม ภันเต อุปะสัมปะทัง ยาจามิ,
+อุลลุมปะตุ มัง ภันเต,
+สังโฆ อะนุกัมปัง อุปาทายะ.
 
 ทุติยัมปิ ภันเต สังฆัง อุปะสัมปะทัง ยาจามิ,
-อุลลุมปะตุ มัง ภันเต สังโฆ,
-อะนุกัมปัง อุปาทายะ.
+อุลลุมปะตุ มัง ภันเต,
+สังโฆ อะนุกัมปัง อุปาทายะ.
 
 ตะติยัมปิ ภันเต สังฆัง อุปะสัมปะทัง ยาจามิ,
-อุลลุมปะตุ มัง ภันเต สังโฆ,
-อะนุกัมปัง อุปาทายะ.`},
-{t:'14. สอบต่อหน้าสงฆ์',m:'คำถามชุดเดิมกับตอนซ้อม: 5 นัตถิ + 8 อามะ + ชื่อเรา + ชื่ออุปัชฌาย์',x:`กุฏฐัง → นัตถิ ภันเต
-คัณโฑ → นัตถิ ภันเต
-กิลาโส → นัตถิ ภันเต
-โสโส → นัตถิ ภันเต
-อะปะมาโร → นัตถิ ภันเต
-
-มะนุสโสสิ๊ → อามะ ภันเต
-ปุริโสสิ๊ → อามะ ภันเต
-ภุชิสโสสิ๊ → อามะ ภันเต
-อะนะโณสิ๊ → อามะ ภันเต
-นะสิ๊ ราชะภะโฏ → อามะ ภันเต
-อะนุญญาโตสิ๊ มาตาปิตูหิ → อามะ ภันเต
-ปะริปุณณะวีสะติวัสโสสิ๊ → อามะ ภันเต
-ปะริปุณณันเต ปัตตะจีวะรัง → อามะ ภันเต
-
-กินนาโมสิ → อะหัง ภันเต [ฉายาเรา] นามะ
-โก นามะ เต อุปัชฌาโย → อุปัชฌาโย เม ภันเต อายัสมา [ฉายาอุปัชฌาย์] นามะ`},
-{t:'15. ช่วงกรรมวาจาและอนุศาสน์',m:'ช่วงนี้ “ไม่ต้องพูดแข่งกับพระ” — นั่งฟังกรรมวาจาจนจบ แล้วฟังอนุศาสน์',x:`เมื่อพระอุปัชฌาย์บอกอนุศาสน์จบ → ตอบ “อามะ ภันเต”
-
-จากนั้นกราบพระอุปัชฌาย์ 3 ครั้ง → จบพิธีอุปสมบท`}
+อุลลุมปะตุ มัง ภันเต,
+สังโฆ อะนุกัมปัง อุปาทายะ.`,tr:'ข้าแต่พระสงฆ์ ข้าพเจ้าขออุปสมบท ขอพระสงฆ์โปรดยกข้าพเจ้าขึ้น (สู่อุปสมบท) ด้วยอาศัยความอนุเคราะห์ — กล่าวขอครั้งที่ 2 และครั้งที่ 3',e:'จาก “ขอพระรูปเดียวช่วยบรรพชา” → ตอนนี้ “ขอสงฆ์ทั้งคณะรับเป็นภิกษุ”',w:'สังฆัง = ต่อสงฆ์ · อุปะสัมปะทัง = อุปสมบท · อุลลุมปะตุ = โปรดยกขึ้น/ช่วยยกขึ้น · สังโฆ = พระสงฆ์ · อะนุกัมปัง อุปาทายะ = ด้วยอาศัยความอนุเคราะห์'},
+{t:'กรรมวาจา → อนุศาสน์ → จบ',p:`ช่วงกรรมวาจา: ตั้งใจฟัง
+หลังอนุศาสน์: อามะ ภันเต`,tr:'ช่วงกรรมวาจา พระสงฆ์ดำเนินสังฆกรรม ผู้บวชตั้งใจฟัง เมื่อพระอุปัชฌาย์บอกอนุศาสน์จบ ให้รับว่า “อามะ ภันเต” = ขอรับ/ใช่ครับท่าน',e:'ตรงนี้ไม่ใช่ก้อนใหญ่ที่เราต้องสวดเอง → หน้าที่หลักคือ “ฟัง → รับ → กราบ”',w:'อามะ = ใช่/ขอรับ · ภันเต = ข้าแต่ท่านผู้เจริญ'}
 ];
-const flow=scripts.map((s,i)=>({title:s.t,meaning:s.m}));let done=JSON.parse(localStorage.getItem('odDone')||'[]');let qi=0;const quiz=scripts.map((s,i)=>({q:`ฉากที่ ${i+1}: ${s.t}\nลองพูดบทสำคัญโดยไม่เปิดข้อความ`,a:s.x}));
-function save(){localStorage.setItem('odDone',JSON.stringify(done));let p=Math.round(done.length/scripts.length*100);document.getElementById('bar').style.width=p+'%';document.getElementById('pct').textContent=p+'%'}
-function renderFlow(){flowEl=document.getElementById('flow');flowEl.innerHTML=flow.map((s,i)=>`<div class="scene ${done.includes(i)?'done':''}" onclick="openScript(${i})"><span class="num">${i+1}</span><b>${s.title}</b><div class="small muted">${s.meaning}</div></div>`).join('');save()}
-function openScript(i){tab('scripts',document.querySelectorAll('.tab')[1]);document.getElementById('scriptList').scrollIntoView({behavior:'smooth'});document.querySelectorAll('.scriptCard')[i]?.scrollIntoView({behavior:'smooth',block:'start'})}
-function renderScripts(){document.getElementById('scriptList').innerHTML=scripts.map((s,i)=>`<article class="card scriptCard"><h3>${i+1}. ${s.t}</h3><div class="meaning">💡 ${s.m}</div><div class="pali">${s.x}</div><div class="actions"><button class="btn alt" onclick="toggle(${i})">👁️ ซ่อน/แสดงบท</button><button class="btn" onclick="mark(${i})">✓ จำได้แล้ว</button></div></article>`).join('')}
-function toggle(i){let el=document.querySelectorAll('.scriptCard .pali')[i];el.classList.toggle('hide')}
-function mark(i){if(!done.includes(i))done.push(i);save();renderFlow();document.querySelectorAll('.scriptCard')[i].style.outline='2px solid #9ac5a9'}
-function tab(id,b){document.querySelectorAll('main').forEach(x=>x.classList.add('hide'));document.getElementById(id).classList.remove('hide');document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');if(id==='scripts')renderScripts();if(id==='quiz')renderQuiz()}
-function renderQuiz(){document.getElementById('quizBox').innerHTML=`<div class="muted">ข้อ ${qi+1}/${quiz.length}</div><h3>${quiz[qi].q.replace(/\n/g,'<br>')}</h3><div id="qa" class="reveal hide">${quiz[qi].a.replace(/\n/g,'<br>')}</div>`}function showAns(){document.getElementById('qa').classList.remove('hide')}function nextQ(){qi=(qi+1)%quiz.length;renderQuiz()}
-renderFlow();renderScripts();renderQuiz();
+let done=JSON.parse(localStorage.getItem('done2')||'[]'),qi=0;
+function prog(){let p=Math.round(done.length/S.length*100);bar.style.width=p+'%';pct.textContent=`จำได้ ${done.length}/${S.length} หมวด (${p}%)`}
+function show(id,b){document.querySelectorAll('main').forEach(x=>x.classList.add('hide'));document.getElementById(id).classList.remove('hide');document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));b.classList.add('on');if(id==='learn')render()}
+function renderCheat(){cheatList.innerHTML=S.map((s,i)=>`<div class="mini cheat" onclick="openL(${i})"><b>${i+1}. ${s.t}</b><div>${s.e}</div></div>`).join('')}
+function render(){list.innerHTML=S.map((s,i)=>`<article class="card"><h2>${i+1}. ${s.t}</h2><div class="easy"><b>🧠 เข้าใจก่อน:</b> ${s.e}</div><h3>บาลีที่ต้องพูด</h3><div id="p${i}" class="pali">${s.p}</div><div class="trans"><b>🇹🇭 แปลความ:</b> ${s.tr}</div><div class="words"><b>🔎 แกะคำสำคัญ:</b> ${s.w}</div><div class="actions"><button class="btn" onclick="document.getElementById('p${i}').classList.toggle('hide')">ซ่อน/แสดงบาลี</button><button class="btn main" onclick="mark(${i},this)">${done.includes(i)?'✓ จำได้แล้ว':'ทำเครื่องหมายว่าจำได้'}</button></div></article>`).join('')}
+function openL(i){show('learn',document.querySelectorAll('.tab')[1]);render();setTimeout(()=>document.querySelectorAll('#list article')[i].scrollIntoView({behavior:'smooth'}),50)}
+function mark(i,b){if(!done.includes(i))done.push(i);else done=done.filter(x=>x!==i);localStorage.setItem('done2',JSON.stringify(done));b.textContent=done.includes(i)?'✓ จำได้แล้ว':'ทำเครื่องหมายว่าจำได้';prog()}
+function rq(){let s=S[qi];q.innerHTML=`<div class="muted">${qi+1}/${S.length}</div><h2>${s.t}</h2><div class="easy">สถานการณ์: ${s.e}</div><p><b>ปิดหน้าจอส่วนเฉลย แล้วลองพูดบทให้ได้</b></p><div id="ans" class="hide"><div class="pali">${s.p}</div><div class="trans">${s.tr}</div></div>`}
+function answer(){ans.classList.remove('hide')}function next(){qi=(qi+1)%S.length;rq()}
+renderCheat();render();rq();prog();
 </script></body></html>
