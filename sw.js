@@ -1,5 +1,5 @@
-const CACHE='open-ordination-v1';
-const ASSETS=['./','./index.html','./manifest.webmanifest','./favicon.svg'];
+const CACHE='open-ordination-v2';
+const ASSETS=['./','./index.html','./trainer.html','./manifest.webmanifest','./favicon.svg'];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting()));
 });
