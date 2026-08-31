@@ -1,4 +1,4 @@
-const CACHE='open-ordination-v7';
+const CACHE='open-ordination-v8';
 const ASSETS=['./','./index.html','./trainer.html','./manifest.webmanifest','./favicon.svg'];
 
 self.addEventListener('install',event=>{

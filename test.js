@@ -7,4 +7,6 @@ assert(listen.includes('./trainer.html'));
 assert(!listen.includes('onclick="speak('));
 assert(html.includes('<main id="duo"'));
 assert(html.includes('function resetDuo()'));
+assert(html.includes('เริ่มต้นว่าอะไร?'));
+assert(html.includes('สถานการณ์นี้ต้องใช้บทไหน?'));
 console.log('listen tab uses the YouTube playlist');
