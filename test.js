@@ -14,5 +14,7 @@ assert(html.includes('const duoOrderSteps='));
 assert(html.includes('const duoChantSteps='));
 assert(html.includes("setDuoMode('order')"));
 assert(html.includes("setDuoMode('chant')"));
+assert(html.includes("setDuoMode('words')"));
+assert(html.includes('function checkWordDuo()'));
 assert(html.includes("replace(/^\\d+\\s*/,'')"));
 console.log('listen tab uses the YouTube playlist');
