@@ -8,76 +8,81 @@
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./favicon.svg" type="image/svg+xml">
 <style>
-:root{--bg:#f5efe5;--card:#fffaf2;--ink:#21160f;--muted:#75685d;--line:#e7d9c8;--brown:#5f3519;--gold:#c59345;--green:#dff1e4}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}.wrap{max-width:860px;margin:auto;padding:14px 14px calc(30px + env(safe-area-inset-bottom))}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:8px 0 14px}.brand{display:flex;align-items:center;gap:10px}.logo{width:46px;height:46px;border-radius:14px;background:#21160f;color:#f1c66a;display:grid;place-items:center;font-size:25px}.top h1{font-size:22px;margin:0}.small{font-size:13px}.muted{color:var(--muted)}.back,.btn,select{font:inherit}.back,.btn{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:10px 13px;text-decoration:none;cursor:pointer}.btn.main{background:var(--brown);color:#fff;border-color:var(--brown)}.btn.on{background:var(--green);border-color:#9fc9aa;color:#1e6338}.btn.gold{background:#f4e0b6;border-color:#dbb86f}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;margin:12px 0}.hero{background:linear-gradient(145deg,#21160f,#6a3c1f);color:#fff;border:0}.hero .muted{color:#eadfce}.tracks{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px}.track{padding:12px;border:1px solid var(--line);background:#fff;border-radius:14px;cursor:pointer}.track.active{outline:2px solid var(--gold);background:#fff7e8}.audioWrap{background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px}.audioWrap audio{width:100%}.controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.select{padding:9px 11px;border-radius:10px;border:1px solid var(--line);background:#fff}.timebox{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.time{background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px}.time strong{font-size:22px;display:block}.status{font-weight:700;color:var(--brown);min-height:24px;margin-top:8px}.hint{background:var(--green);padding:11px;border-radius:14px;margin-top:10px}.source{font-size:13px;margin-top:10px}.source a{color:var(--brown)}@media(max-width:600px){.timebox{grid-template-columns:1fr 1fr}.top{align-items:flex-start}.top h1{font-size:20px}}
+:root{--bg:#f5efe5;--card:#fffaf2;--ink:#21160f;--muted:#75685d;--line:#e7d9c8;--brown:#5f3519;--gold:#c59345;--green:#dff1e4}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}.wrap{max-width:860px;margin:auto;padding:14px 14px calc(30px + env(safe-area-inset-bottom))}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:8px 0 14px}.brand{display:flex;align-items:center;gap:10px}.logo{width:46px;height:46px;border-radius:14px;background:#21160f;color:#f1c66a;display:grid;place-items:center;font-size:25px}.top h1{font-size:22px;margin:0}.small{font-size:13px}.muted{color:var(--muted)}.back,.btn,select{font:inherit}.back,.btn{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:10px 13px;text-decoration:none;cursor:pointer}.btn.on{background:var(--green);border-color:#9fc9aa;color:#1e6338}.btn.gold{background:#f4e0b6;border-color:#dbb86f}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;margin:12px 0}.hero{background:linear-gradient(145deg,#21160f,#6a3c1f);color:#fff;border:0}.hero .muted{color:#eadfce}.video{position:relative;padding-top:56.25%;border-radius:16px;overflow:hidden;background:#000}.video>div{position:absolute;inset:0}.controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.select{padding:9px 11px;border-radius:10px;border:1px solid var(--line);background:#fff}.timebox{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.time{background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px}.time strong{font-size:22px;display:block}.status{font-weight:700;color:var(--brown);min-height:24px;margin-top:8px}.hint{background:var(--green);padding:11px;border-radius:14px;margin-top:10px}.source{font-size:13px;margin-top:10px}.source a{color:var(--brown)}@media(max-width:600px){.top{align-items:flex-start}.top h1{font-size:20px}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="top">
-    <div class="brand"><div class="logo">🪷</div><div><h1>Loop Trainer</h1><div class="muted small">เสียงคนจริง · วน A–B · ใช้ได้ตรง ๆ</div></div></div>
+    <div class="brand"><div class="logo">🪷</div><div><h1>Loop Trainer</h1><div class="muted small">YouTube Playlist · เสียงคนจริง · วน A–B</div></div></div>
     <a class="back" href="./">← หน้าหลัก</a>
   </div>
 
   <section class="card hero">
-    <h2 style="margin-top:0">รอบนี้ตัด YouTube A/B ออก</h2>
-    <div>ใช้ไฟล์เสียง MP3 คนจริงโดยตรง แล้วให้เบราว์เซอร์เล่นและวนช่วง A–B เอง จึงไม่ต้องพึ่ง YouTube Player API</div>
+    <h2 style="margin-top:0">ใช้ Playlist นี้เป็นแหล่งเสียงหลักแล้ว</h2>
+    <div>ไม่โหลด MP3 จาก Google Drive อีกต่อไป เลือกคลิปจาก playlist ในตัว YouTube ได้เลย แล้วใช้ A–B loop กับคลิปที่กำลังเล่น</div>
   </section>
 
   <section class="card">
-    <h2 style="margin-top:0">1) เลือกบท</h2>
-    <div id="tracks" class="tracks"></div>
-  </section>
-
-  <section class="card">
-    <h2 id="trackTitle" style="margin-top:0">เสียงฝึก</h2>
-    <div class="audioWrap">
-      <audio id="audio" controls playsinline preload="metadata"></audio>
-      <div class="controls">
-        <button class="btn gold" id="setABtn">A เริ่มตรงนี้</button>
-        <button class="btn gold" id="setBBtn">B จบตรงนี้</button>
-        <button class="btn" id="loopBtn">🔁 Loop OFF</button>
-        <button class="btn" id="jumpBtn">↶ กลับ A</button>
-        <select id="speed" class="select"><option value="0.75">0.75×</option><option value="0.9">0.9×</option><option value="1" selected>1×</option></select>
-      </div>
-      <div class="timebox">
-        <div class="time"><span class="muted small">A — เริ่ม</span><strong id="aText">0:00.0</strong></div>
-        <div class="time"><span class="muted small">B — จบ</span><strong id="bText">—</strong></div>
-      </div>
-      <div id="status" class="status"></div>
+    <div class="video"><div id="player"></div></div>
+    <div class="controls">
+      <button class="btn" id="prevBtn">⏮ คลิปก่อน</button>
+      <button class="btn" id="nextBtn">คลิปถัดไป ⏭</button>
+      <button class="btn gold" id="setABtn">A เริ่มตรงนี้</button>
+      <button class="btn gold" id="setBBtn">B จบตรงนี้</button>
+      <button class="btn" id="loopBtn">🔁 A–B OFF</button>
+      <button class="btn" id="repeatBtn">🔂 วนทั้งคลิป OFF</button>
+      <button class="btn" id="jumpBtn">↶ กลับ A</button>
+      <select id="speed" class="select"><option value="0.75">0.75×</option><option value="1" selected>1×</option></select>
     </div>
-    <div class="hint"><b>ใช้จริง:</b> กดเล่น → ถึงจุดเริ่มให้กด A → ถึงจุดจบให้กด B → กด 🔁 Loop ON แล้วปล่อยฟังวนได้เลย</div>
-    <div class="source">เสียงอ้างอิงจากชุด “คำขานนาค คำขอบวช” ของ Kalyanamitra ซึ่งหน้าเว็บระบุว่าแจกเป็น MP3 สำหรับเปิดบน iPhone/Android ได้โดยตรง · <a href="https://kalyanamitra.org/sermon/index_mp3_track.php?id=598" target="_blank" rel="noopener">เปิดหน้าต้นฉบับ</a></div>
+    <div class="timebox">
+      <div class="time"><span class="muted small">A — เริ่ม</span><strong id="aText">0:00.0</strong></div>
+      <div class="time"><span class="muted small">B — จบ</span><strong id="bText">—</strong></div>
+    </div>
+    <div id="status" class="status">กำลังโหลด YouTube…</div>
+    <div class="hint"><b>ใช้เร็วสุด:</b> เลือกคลิปจาก playlist → กดเล่น → ถึงต้นวรรคกด A → ถึงท้ายวรรคกด B → เปิด A–B แล้วปล่อยวน</div>
+    <div class="source"><a href="https://www.youtube.com/watch?v=_-Gbs_Xl7Go&list=PLXRewNkdAh9XyUiNo8xRt365g09gb-nkz" target="_blank" rel="noopener">เปิด playlist ต้นฉบับใน YouTube</a></div>
   </section>
 </div>
 <script>
-const TRACKS=[
-  ['ขอขมา','0B5e5aFhALym4dTdaMTFBXzctU28'],
-  ['คำขอบรรพชา (แบบอุกาสะ)','0B5e5aFhALym4MEk4WjNPVTB4ZGc'],
-  ['คำขอศีล','0B5e5aFhALym4bkRBckZnSjh0Znc'],
-  ['คำขอนิสัย','0B5e5aFhALym4LXVjcTcwdW9oLWc'],
-  ['คำบอกบริขาร','0B5e5aFhALym4aFdFbmJaMmF4a0k'],
-  ['อันตรายิกธรรม','0B5e5aFhALym4WWtmVjlTOWc0d28'],
-  ['คำขออุปสมบท','0B5e5aFhALym4NFZVMXVmcGpITU0'],
-  ['มูลกัมมัฏฐาน','0B5e5aFhALym4Qmg4Q0MwWTQ0Uk0']
-];
+const PLAYLIST='PLXRewNkdAh9XyUiNo8xRt365g09gb-nkz';
+const FIRST='_-Gbs_Xl7Go';
 const $=id=>document.getElementById(id);
-const audio=$('audio'),tracks=$('tracks'),title=$('trackTitle'),aText=$('aText'),bText=$('bText'),status=$('status'),loopBtn=$('loopBtn'),speed=$('speed');
-let current=1,A=0,B=null,loop=false;
-function src(id){return `https://drive.google.com/uc?export=download&id=${id}`}
+let player=null,A=0,B=null,abLoop=false,repeatWhole=false,watcher=null,lastIndex=-1;
 function fmt(s){if(!Number.isFinite(s))return '—';let m=Math.floor(s/60),x=(s%60).toFixed(1).padStart(4,'0');return `${m}:${x}`}
-function renderTracks(){tracks.innerHTML=TRACKS.map((t,i)=>`<button class="track ${i===current?'active':''}" data-i="${i}"><b>${i+1}. ${t[0]}</b></button>`).join('');tracks.querySelectorAll('.track').forEach(b=>b.addEventListener('click',()=>loadTrack(Number(b.dataset.i))))}
-function loadTrack(i){current=i;loop=false;A=0;B=null;loopBtn.textContent='🔁 Loop OFF';loopBtn.classList.remove('on');audio.pause();audio.src=src(TRACKS[i][1]);audio.load();title.textContent=TRACKS[i][0];aText.textContent=fmt(A);bText.textContent='—';status.textContent='กดเล่นเพื่อเริ่มฟัง';renderTracks()}
-$('setABtn').addEventListener('click',()=>{A=audio.currentTime||0;aText.textContent=fmt(A);status.textContent='ตั้ง A แล้ว'});
-$('setBBtn').addEventListener('click',()=>{B=audio.currentTime||0;if(B<=A)B=A+1;bText.textContent=fmt(B);status.textContent='ตั้ง B แล้ว'});
-loopBtn.addEventListener('click',async()=>{if(B==null){B=Number.isFinite(audio.duration)?audio.duration:Math.max(A+5,audio.currentTime+5);bText.textContent=fmt(B)};loop=!loop;loopBtn.textContent=loop?'🔁 Loop ON':'🔁 Loop OFF';loopBtn.classList.toggle('on',loop);if(loop){audio.currentTime=A;try{await audio.play()}catch(e){}status.textContent='กำลังวน A–B'}else status.textContent='ปิดการวนแล้ว'});
-$('jumpBtn').addEventListener('click',()=>{audio.currentTime=A;audio.play().catch(()=>{})});
-speed.addEventListener('change',()=>audio.playbackRate=Number(speed.value));
-audio.addEventListener('timeupdate',()=>{if(loop&&B!=null&&audio.currentTime>=B-0.06){audio.currentTime=A;if(audio.paused)audio.play().catch(()=>{})}});
-audio.addEventListener('ended',()=>{if(loop){audio.currentTime=A;audio.play().catch(()=>{})}});
-audio.addEventListener('loadedmetadata',()=>{if(B==null)bText.textContent=fmt(audio.duration);status.textContent='พร้อมเล่น'});
-audio.addEventListener('error',()=>{status.innerHTML='ไฟล์เสียงจากต้นทางโหลดไม่สำเร็จบนเบราว์เซอร์นี้ — <a target="_blank" rel="noopener" href="'+src(TRACKS[current][1])+'">แตะเปิดไฟล์ต้นฉบับ</a>'});
-loadTrack(current);
-if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+function setStatus(t){$('status').textContent=t}
+function resetAB(){A=0;B=null;abLoop=false;$('aText').textContent='0:00.0';$('bText').textContent='—';$('loopBtn').textContent='🔁 A–B OFF';$('loopBtn').classList.remove('on')}
+function onYouTubeIframeAPIReady(){
+  player=new YT.Player('player',{height:'100%',width:'100%',videoId:FIRST,playerVars:{listType:'playlist',list:PLAYLIST,playsinline:1,rel:0},events:{onReady:onReady,onStateChange:onState}})
+}
+function onReady(){setStatus('พร้อมเล่น · เลือกคลิปจาก playlist ในตัววิดีโอได้เลย');startWatcher()}
+function onState(e){
+  if(e.data===YT.PlayerState.PLAYING){
+    const idx=player.getPlaylistIndex();
+    if(lastIndex!==-1&&idx!==lastIndex)resetAB();
+    lastIndex=idx;
+    setStatus(abLoop?'กำลังวน A–B':repeatWhole?'กำลังวนทั้งคลิป':'กำลังเล่น')
+  }
+}
+function startWatcher(){
+  if(watcher)clearInterval(watcher);
+  watcher=setInterval(()=>{
+    if(!player||!player.getCurrentTime)return;
+    const t=player.getCurrentTime()||0,d=player.getDuration()||0;
+    if(abLoop&&B!=null&&t>=B-0.12){player.seekTo(A,true);player.playVideo();return}
+    if(repeatWhole&&d>0&&t>=d-0.2){player.seekTo(0,true);player.playVideo()}
+  },120)
+}
+$('setABtn').onclick=()=>{if(!player)return;A=player.getCurrentTime()||0;$('aText').textContent=fmt(A);setStatus('ตั้ง A แล้ว')};
+$('setBBtn').onclick=()=>{if(!player)return;B=player.getCurrentTime()||0;if(B<=A)B=A+1;$('bText').textContent=fmt(B);setStatus('ตั้ง B แล้ว')};
+$('loopBtn').onclick=()=>{if(!player)return;if(B==null){const d=player.getDuration()||0;B=d>A?d:A+5;$('bText').textContent=fmt(B)}abLoop=!abLoop;if(abLoop)repeatWhole=false;$('loopBtn').textContent=abLoop?'🔁 A–B ON':'🔁 A–B OFF';$('loopBtn').classList.toggle('on',abLoop);$('repeatBtn').textContent='🔂 วนทั้งคลิป OFF';$('repeatBtn').classList.remove('on');if(abLoop){player.seekTo(A,true);player.playVideo();setStatus('กำลังวน A–B')}else setStatus('ปิด A–B แล้ว')};
+$('repeatBtn').onclick=()=>{if(!player)return;repeatWhole=!repeatWhole;if(repeatWhole)abLoop=false;$('repeatBtn').textContent=repeatWhole?'🔂 วนทั้งคลิป ON':'🔂 วนทั้งคลิป OFF';$('repeatBtn').classList.toggle('on',repeatWhole);$('loopBtn').textContent='🔁 A–B OFF';$('loopBtn').classList.remove('on');setStatus(repeatWhole?'กำลังวนทั้งคลิป':'ปิดการวนทั้งคลิปแล้ว')};
+$('jumpBtn').onclick=()=>{if(player){player.seekTo(A,true);player.playVideo()}};
+$('prevBtn').onclick=()=>{if(player){resetAB();player.previousVideo()}};
+$('nextBtn').onclick=()=>{if(player){resetAB();player.nextVideo()}};
+$('speed').onchange=()=>{if(player&&player.setPlaybackRate)player.setPlaybackRate(Number($('speed').value))};
+if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
 </script>
+<script src="https://www.youtube.com/iframe_api"></script>
 </body>
 </html>
