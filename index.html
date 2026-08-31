@@ -133,7 +133,7 @@ const S=[
 ];
 let done=JSON.parse(localStorage.getItem('done4')||'[]'),qi=0,deferredInstallPrompt=null;
 let duo=JSON.parse(localStorage.getItem('duo4')||'{"mode":"order","order":{"step":0,"score":0},"chant":{"step":0,"score":0}}'),duoLocked=false;
-const duoLines=S.map(s=>s.p.split('\n').map(x=>x.trim()).filter(Boolean));
+const duoLines=S.map(s=>s.p.split('\n').map(x=>x.trim().replace(/^\d+\s*/,'')).filter(Boolean));
 const duoOrderSteps=S.map((s,lesson)=>({lesson,line:-1}));
 const duoChantSteps=S.flatMap((s,lesson)=>duoLines[lesson].map((x,line)=>({lesson,line})));
 const duoPool=[...new Set(duoLines.flat())];
