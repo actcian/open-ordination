@@ -1,4 +1,48 @@
-<!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Open Ordination</title><style>:root{--b:#f7f2e9;--c:#fffdf8;--i:#211c16;--m:#71695f;--l:#e4d9ca;--a:#74461f;--s:#fbf1e4;--g:#edf6ef;--blue:#eef4f8;--aud:#f0edf9}*{box-sizing:border-box}body{margin:0;background:var(--b);color:var(--i);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65}.w{max-width:900px;margin:auto;padding:14px}.hero,.card{background:var(--c);border:1px solid var(--l);border-radius:20px;padding:18px;margin:12px 0}.hero h1{margin:0}.muted{color:var(--m)}.tabs{display:flex;gap:7px;overflow:auto;position:sticky;top:0;background:var(--b);padding:8px 0;z-index:3}.tab,.btn{border:1px solid var(--l);border-radius:999px;padding:10px 14px;background:var(--c);white-space:nowrap;cursor:pointer}.tab.on,.btn.main{background:var(--a);color:#fff}.hide{display:none}.pali{white-space:pre-wrap;background:var(--s);border-left:4px solid var(--a);padding:14px;border-radius:12px;font-size:18px;font-weight:650}.trans,.easy,.literal,.audioBox{padding:12px;border-radius:12px;margin-top:9px}.trans{background:#f3f3ef}.easy{background:var(--g)}.literal{background:var(--blue)}.audioBox{background:var(--aud)}.literal-grid{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}.word{display:inline-flex;gap:5px;align-items:baseline;border:1px solid #d7e2e9;background:white;border-radius:9px;padding:5px 8px}.word b{color:var(--a)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}.mini{background:var(--c);border:1px solid var(--l);border-radius:15px;padding:13px;cursor:pointer}.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.progress{height:9px;background:#e5dbcf;border-radius:99px;overflow:hidden}.bar{height:100%;background:#aa7746}.cheat{font-size:15px}.cheat b{color:var(--a)}.rate{padding:9px;border-radius:10px;border:1px solid var(--l);background:white}.video{position:relative;padding-top:56.25%;border-radius:14px;overflow:hidden;margin-top:12px}.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.now{font-weight:700;color:var(--a)}h2{margin-bottom:5px}@media(max-width:600px){.hero h1{font-size:24px}.pali{font-size:16.5px}.word{font-size:14px}}</style></head><body><div class="w"><div class="hero"><h1>🪷 Open Ordination</h1><div class="muted">เข้าใจ → ฟัง → พูดตาม → แกะบาลี → ปิดบท → พูดเอง</div><div class="progress"><div id="bar" class="bar"></div></div><small id="pct"></small></div><div class="tabs"><button class="tab on" onclick="show('cheat',this)">⚡ Cheat sheet</button><button class="tab" onclick="show('learn',this)">📖 เข้าใจ + ท่องจริง</button><button class="tab" onclick="show('listen',this)">🎧 หนังสือพูดได้</button><button class="tab" onclick="show('test',this)">🧠 ซ้อม</button></div><main id="cheat"><div class="card"><h2>พิธีทั้งเรื่องในหน้าเดียว</h2><p><b>ขอบรรพชา → รับผ้า/กัมมัฏฐาน → ขอสรณะและศีล → ไตรสรณคมน์ → ศีล 10 → ขอนิสสัย → บาตรจีวร → อันตรายิกธรรม → ชื่อ → ขออุปสมบท → กรรมวาจา/อนุศาสน์</b></p><div id="cheatList" class="grid"></div></div></main><main id="learn" class="hide"><div class="card"><h2>บทที่ต้องท่อง + คำแปล</h2><p class="muted">ทุกหมวดมีความหมายทั้งบทและบาลีทีละคำ พร้อมปุ่มฟังบทนั้นทันที</p><div id="list"></div></div></main><main id="listen" class="hide"><div class="card"><h2>🎧 หนังสือพูดได้</h2><p>เลือกบท → ฟัง → พูดตาม ถ้ายังตามไม่ทันให้ใช้ <b>0.7×</b></p><div class="audioBox"><b>ความเร็ว:</b> <select id="rate" class="rate"><option value="0.7">0.7× ช้ามาก</option><option value="0.85" selected>0.85× ฝึกตาม</option><option value="1">1.0× ปกติ</option></select><div class="actions"><button class="btn main" onclick="playAll()">▶ ฟังต่อเนื่องทุกบท</button><button class="btn" onclick="stopSpeak()">■ หยุด</button></div><div id="now" class="now"></div></div><div id="listenList"></div></div><div class="card"><h2>เสียงคนจริง — แบบอุกาสะ</h2><p class="muted">ใช้เทียบจังหวะและการออกเสียงกับเสียงคนจริง ส่วนข้อความที่ต้องยึดให้ตรงวันบวช ให้ยึดเอกสารของวัด/พระอาจารย์เป็นหลัก เพราะแต่ละสำนักอาจแบ่งวรรคต่างกันเล็กน้อย</p><div class="video"><iframe src="https://www.youtube.com/embed/JroJer67uIY" title="คำขอบรรพชาอุปสมบท แบบอุกาสะ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><div class="actions"><a class="btn" href="https://www.youtube.com/watch?v=wGUwK9tTQD0" target="_blank" rel="noopener">เปิดคลิปอุกาสะอีกชุด ↗</a></div></div></main><main id="test" class="hide"><div class="card"><h2>ซ้อมดึงจากความจำ</h2><div id="q"></div><div class="actions"><button class="btn main" onclick="answer()">ดูเฉลย</button><button class="btn" onclick="next()">ข้อต่อไป</button></div></div></main></div><script>
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#74461f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Ordination">
+<title>Open Ordination</title>
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="./favicon.svg">
+<style>
+:root{--b:#f7f2e9;--c:#fffdf8;--i:#211c16;--m:#71695f;--l:#e4d9ca;--a:#74461f;--s:#fbf1e4;--g:#edf6ef;--blue:#eef4f8;--aud:#f0edf9}*{box-sizing:border-box}body{margin:0;background:var(--b);color:var(--i);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65}.w{max-width:900px;margin:auto;padding:14px;padding-bottom:calc(20px + env(safe-area-inset-bottom))}.hero,.card{background:var(--c);border:1px solid var(--l);border-radius:20px;padding:18px;margin:12px 0}.hero{position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:150px;height:150px;border-radius:50%;right:-45px;top:-55px;background:radial-gradient(circle,#f1b85a55,transparent 70%);pointer-events:none}.hero h1{margin:0}.muted{color:var(--m)}.tabs{display:flex;gap:7px;overflow:auto;position:sticky;top:0;background:color-mix(in srgb,var(--b) 94%,transparent);backdrop-filter:blur(12px);padding:8px 0;z-index:3}.tab,.btn{border:1px solid var(--l);border-radius:999px;padding:10px 14px;background:var(--c);white-space:nowrap;cursor:pointer;color:var(--i);text-decoration:none;font:inherit}.tab.on,.btn.main{background:var(--a);color:#fff}.hide{display:none!important}.pali{white-space:pre-wrap;background:var(--s);border-left:4px solid var(--a);padding:14px;border-radius:12px;font-size:18px;font-weight:650}.trans,.easy,.literal,.audioBox,.installBox{padding:12px;border-radius:12px;margin-top:9px}.trans{background:#f3f3ef}.easy{background:var(--g)}.literal{background:var(--blue)}.audioBox{background:var(--aud)}.installBox{background:#fff5df;border:1px solid #efd69c}.literal-grid{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}.word{display:inline-flex;gap:5px;align-items:baseline;border:1px solid #d7e2e9;background:white;border-radius:9px;padding:5px 8px}.word b{color:var(--a)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}.mini{background:var(--c);border:1px solid var(--l);border-radius:15px;padding:13px;cursor:pointer}.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.progress{height:9px;background:#e5dbcf;border-radius:99px;overflow:hidden}.bar{height:100%;background:#aa7746}.cheat{font-size:15px}.cheat b{color:var(--a)}.rate{padding:9px;border-radius:10px;border:1px solid var(--l);background:white}.video{position:relative;padding-top:56.25%;border-radius:14px;overflow:hidden;margin-top:12px}.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.now{font-weight:700;color:var(--a)}.status{display:inline-flex;align-items:center;gap:6px;font-size:13px;margin-top:8px}.dot{width:8px;height:8px;border-radius:50%;background:#3d8b58}.offline .dot{background:#b66c34}h2{margin-bottom:5px}@media(max-width:600px){.hero h1{font-size:24px}.pali{font-size:16.5px}.word{font-size:14px}}
+</style>
+</head>
+<body>
+<div class="w">
+  <div class="hero">
+    <h1>🪷 Open Ordination</h1>
+    <div class="muted">เข้าใจ → ฟัง → พูดตาม → แกะบาลี → ปิดบท → พูดเอง</div>
+    <div class="progress"><div id="bar" class="bar"></div></div>
+    <small id="pct"></small>
+    <div id="netStatus" class="status"><span class="dot"></span><span>พร้อมใช้งาน</span></div>
+    <div id="installBox" class="installBox">
+      <b>📲 ติดตั้งเป็นแอปได้แล้ว</b>
+      <div class="muted small">Android/Chrome กด “ติดตั้งแอป” ได้เลย · iPhone ใช้ Share → Add to Home Screen</div>
+      <div class="actions"><button id="installBtn" class="btn main hide" onclick="installApp()">ติดตั้งแอป</button></div>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab on" onclick="show('cheat',this)">⚡ Cheat sheet</button>
+    <button class="tab" onclick="show('learn',this)">📖 เข้าใจ + ท่องจริง</button>
+    <button class="tab" onclick="show('listen',this)">🎧 หนังสือพูดได้</button>
+    <button class="tab" onclick="show('test',this)">🧠 ซ้อม</button>
+  </div>
+
+  <main id="cheat"><div class="card"><h2>พิธีทั้งเรื่องในหน้าเดียว</h2><p><b>ขอบรรพชา → รับผ้า/กัมมัฏฐาน → ขอสรณะและศีล → ไตรสรณคมน์ → ศีล 10 → ขอนิสสัย → บาตรจีวร → อันตรายิกธรรม → ชื่อ → ขออุปสมบท → กรรมวาจา/อนุศาสน์</b></p><div id="cheatList" class="grid"></div></div></main>
+  <main id="learn" class="hide"><div class="card"><h2>บทที่ต้องท่อง + คำแปล</h2><p class="muted">ทุกหมวดมีความหมายทั้งบทและบาลีทีละคำ พร้อมปุ่มฟังบทนั้นทันที</p><div id="list"></div></div></main>
+  <main id="listen" class="hide"><div class="card"><h2>🎧 หนังสือพูดได้</h2><p>เลือกบท → ฟัง → พูดตาม ถ้ายังตามไม่ทันให้ใช้ <b>0.7×</b></p><div class="audioBox"><b>ความเร็ว:</b> <select id="rate" class="rate"><option value="0.7">0.7× ช้ามาก</option><option value="0.85" selected>0.85× ฝึกตาม</option><option value="1">1.0× ปกติ</option></select><div class="actions"><button class="btn main" onclick="playAll()">▶ ฟังต่อเนื่องทุกบท</button><button class="btn" onclick="stopSpeak()">■ หยุด</button></div><div id="now" class="now"></div></div><div id="listenList"></div></div><div class="card"><h2>เสียงคนจริง — แบบอุกาสะ</h2><p class="muted">ใช้เทียบจังหวะและการออกเสียงกับเสียงคนจริง ส่วนข้อความวันบวชให้ยึดเอกสารของวัด/พระอาจารย์เป็นหลัก</p><div class="video"><iframe src="https://www.youtube.com/embed/JroJer67uIY" title="คำขอบรรพชาอุปสมบท แบบอุกาสะ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><div class="actions"><a class="btn" href="https://www.youtube.com/watch?v=wGUwK9tTQD0" target="_blank" rel="noopener">เปิดคลิปอุกาสะอีกชุด ↗</a></div></div></main>
+  <main id="test" class="hide"><div class="card"><h2>ซ้อมดึงจากความจำ</h2><div id="q"></div><div class="actions"><button class="btn main" onclick="answer()">ดูเฉลย</button><button class="btn" onclick="next()">ข้อต่อไป</button></div></div></main>
+</div>
+<script>
 const S=[
 {t:'คำขอบรรพชา — บทเปิด',p:`อุกาสะ วันทามิ ภันเต,
 สัพพัง อะปะราธัง ขะมะถะ เม ภันเต,
@@ -83,7 +127,7 @@ const S=[
 {t:'กรรมวาจา → อนุศาสน์ → จบ',p:`ช่วงกรรมวาจา: ตั้งใจฟัง
 หลังอนุศาสน์: อามะ ภันเต`,tr:'ช่วงกรรมวาจาตั้งใจฟัง เมื่อพระบอกอนุศาสน์ให้รับว่า อามะ ภันเต = ขอรับครับท่าน',e:'ฟัง → รับ → กราบ',lit:[['อามะ','ใช่/ขอรับ'],['ภันเต','ข้าแต่ท่านผู้เจริญ']]}
 ];
-let done=JSON.parse(localStorage.getItem('done4')||'[]'),qi=0,allIndex=0;
+let done=JSON.parse(localStorage.getItem('done4')||'[]'),qi=0,allIndex=0,deferredInstallPrompt=null;
 function prog(){let p=Math.round(done.length/S.length*100);bar.style.width=p+'%';pct.textContent=`จำได้ ${done.length}/${S.length} หมวด (${p}%)`}
 function show(id,b){stopSpeak();document.querySelectorAll('main').forEach(x=>x.classList.add('hide'));document.getElementById(id).classList.remove('hide');document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));b.classList.add('on');if(id==='learn')render();if(id==='listen')renderListen()}
 function renderCheat(){cheatList.innerHTML=S.map((s,i)=>`<div class="mini cheat" onclick="openL(${i})"><b>${i+1}. ${s.t}</b><div>${s.e}</div></div>`).join('')}
@@ -100,5 +144,12 @@ function openL(i){show('learn',document.querySelectorAll('.tab')[1]);render();se
 function mark(i,b){if(!done.includes(i))done.push(i);else done=done.filter(x=>x!==i);localStorage.setItem('done4',JSON.stringify(done));b.textContent=done.includes(i)?'✓ จำได้แล้ว':'ทำเครื่องหมายว่าจำได้';prog()}
 function rq(){let s=S[qi];q.innerHTML=`<div class="muted">${qi+1}/${S.length}</div><h2>${s.t}</h2><div class="easy">สถานการณ์: ${s.e}</div><div class="actions"><button class="btn" onclick="speak(${qi})">🎧 ฟังก่อนซ้อม</button></div><p><b>ลองพูดเองก่อน แล้วค่อยเปิดเฉลย</b></p><div id="ans" class="hide"><div class="pali">${s.p}</div><div class="trans">${s.tr}</div>${literal(s)}</div>`}
 function answer(){ans.classList.remove('hide')}function next(){stopSpeak();qi=(qi+1)%S.length;rq()}
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstallPrompt=e;installBtn.classList.remove('hide')});
+async function installApp(){if(!deferredInstallPrompt)return;deferredInstallPrompt.prompt();await deferredInstallPrompt.userChoice;deferredInstallPrompt=null;installBtn.classList.add('hide')}
+function updateNet(){netStatus.classList.toggle('offline',!navigator.onLine);netStatus.querySelector('span:last-child').textContent=navigator.onLine?'พร้อมใช้งาน':'ออฟไลน์ — เนื้อหาหลักยังเปิดได้'}
+window.addEventListener('online',updateNet);window.addEventListener('offline',updateNet);updateNet();
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}))}
 renderCheat();render();renderListen();rq();prog();
-</script></body></html>
+</script>
+</body>
+</html>
