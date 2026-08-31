@@ -5,4 +5,6 @@ const listen=html.match(/<main id="listen"[\s\S]*?<main id="test"/)[0];
 assert(listen.includes('PLXRewNkdAh9XyUiNo8xRt365g09gb-nkz'));
 assert(listen.includes('./trainer.html'));
 assert(!listen.includes('onclick="speak('));
+assert(html.includes('<main id="duo"'));
+assert(html.includes('function resetDuo()'));
 console.log('listen tab uses the YouTube playlist');
