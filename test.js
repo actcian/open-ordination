@@ -40,7 +40,7 @@ assert(html.includes('function memory(i,open=false)'));
 assert((html.match(/\$\{memory\(/g)||[]).length>=4);
 for(const file of ['original-2807.jpg','original-2808.jpg','original-2809.jpg']) assert(require('node:fs').existsSync(file)&&html.includes('./'+file));
 for(const file of ['original-2807.jpg','original-2808.jpg','original-2809.jpg']) assert(worker.includes('./'+file));
-assert(worker.includes("open-ordination-v18"));
+assert(worker.includes("open-ordination-v19"));
 const lessons=new Function('return ['+html.match(/const S=\[([\s\S]*?)\n\];/)[1]+']')();
 for(const line of lessons[10].p.split('\n')) assert.equal(line.split(' — ')[1],'นัตถิ ภันเต');
 for(const line of lessons[11].p.split('\n')) assert.equal(line.split(' — ')[1],'อามะ ภันเต');
