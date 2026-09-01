@@ -26,9 +26,13 @@ assert(html.includes("replace(/^\\d+\\s*/,'').replace(/\\s*\\(3 จบ\\)$/,'')"
 assert(html.includes('const duoCoreSteps=lineSteps([0,1,2,3,5,8,13])'));
 assert(html.includes('const duoGuidedSteps=lineSteps([4,6,7])'));
 assert(html.includes("localStorage.getItem('duo5')"));
+assert(html.includes("['อุกาสะ','โอกาส → ขอโอกาส']"));
+assert(html.includes("['วันทามิ','วันทา/ไหว้ → ข้าพเจ้าไหว้']"));
+assert(html.includes('function memory(i,open=false)'));
+assert((html.match(/\$\{memory\(/g)||[]).length>=4);
 for(const file of ['original-2807.jpg','original-2808.jpg','original-2809.jpg']) assert(require('node:fs').existsSync(file)&&html.includes('./'+file));
 for(const file of ['original-2807.jpg','original-2808.jpg','original-2809.jpg']) assert(worker.includes('./'+file));
-assert(worker.includes("open-ordination-v13"));
+assert(worker.includes("open-ordination-v14"));
 const lessons=new Function('return ['+html.match(/const S=\[([\s\S]*?)\n\];/)[1]+']')();
 for(const line of lessons[10].p.split('\n')) assert.equal(line.split(' — ')[1],'นัตถิ ภันเต');
 for(const line of lessons[11].p.split('\n')) assert.equal(line.split(' — ')[1],'อามะ ภันเต');
