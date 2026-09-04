@@ -72,7 +72,8 @@ assert(html.includes('nextSpeechPractice();setTimeout(()=>liveAdvancing=false,60
 assert(html.includes('if(message.setupComplete){clearTimeout(liveReadyTimer);liveNotice='));
 assert(html.includes('Gemini Live ไม่พร้อมภายใน 8 วินาที'));
 assert(html.includes("typeof event.data==='string'?event.data:await event.data.text()"));
-assert(worker.includes("open-ordination-v32"));
+assert(html.includes("liveFinalTranscript=(liveFinalTranscript+' '+finalText).trim()"));
+assert(worker.includes("open-ordination-v33"));
 const lessons=new Function('return ['+html.match(/const S=\[([\s\S]*?)\n\];/)[1]+']')();
 for(const line of lessons[10].p.split('\n')) assert.equal(line.split(' — ')[1],'นัตถิ ภันเต');
 for(const line of lessons[11].p.split('\n')) assert.equal(line.split(' — ')[1],'อามะ ภันเต');
