@@ -75,7 +75,7 @@ assert(html.includes("liveFinalTranscript=(liveFinalTranscript+' '+finalText).tr
 assert(html.includes("speechScoreStore='openOrdinationSpeechScore'"));
 assert(html.includes('function scoreSpeech(expected,heard)'));
 assert(html.includes("liveFinalTranscript='';liveAdvancing=false},1600"));
-assert(worker.includes("open-ordination-v36"));
+assert(worker.includes("open-ordination-v37"));
 const lessons=new Function('return ['+html.match(/const S=\[([\s\S]*?)\n\];/)[1]+']')();
 for(const line of lessons[10].p.split('\n')) assert.equal(line.split(' — ')[1],'นัตถิ ภันเต');
 for(const line of lessons[11].p.split('\n')) assert.equal(line.split(' — ')[1],'อามะ ภันเต');
