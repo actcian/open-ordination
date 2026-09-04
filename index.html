@@ -16,7 +16,7 @@
 .video{background:#000}.video>div{position:absolute;inset:0;width:100%;height:100%}
 .duo-choice{width:100%;text-align:left;border-radius:14px;white-space:normal}.duo-choice.good{background:#dff1e4;border-color:#7db88b}.duo-choice.bad{background:#fde4e1;border-color:#d8877c}.duo-head{display:flex;justify-content:space-between;align-items:center;gap:10px}.duo-head .progress{flex:1}.duo-result{padding:12px;border-radius:12px;margin-top:12px;background:var(--g)}
 .word-box{min-height:58px;padding:10px;border:2px dashed var(--l);border-radius:14px;margin-top:10px}.word-box .btn{white-space:normal}
-.source-page{display:block;width:100%;height:auto;border:1px solid var(--l);border-radius:12px;margin-top:10px}
+.source-page{display:block;width:100%;height:auto;border:1px solid var(--l);border-radius:12px;margin-top:10px}.key-input{display:block;width:100%;margin-top:7px;padding:11px 12px;border:1px solid var(--l);border-radius:8px;background:#fff;color:var(--i);font:inherit}
 /* ponytail: small visual override keeps the existing layout intact. */
 .pali{border:1px solid var(--l);border-left:1px solid var(--l)}
 h1{font-size:clamp(28px,5vw,38px);line-height:1.2}h2{font-size:21px;line-height:1.3}.brand{display:flex;align-items:center;gap:11px}.brand-mark{width:46px;height:46px;border-radius:13px;flex:none}
@@ -44,6 +44,7 @@ h1{font-size:clamp(28px,5vw,38px);line-height:1.2}h2{font-size:21px;line-height:
     <button class="tab" onclick="show('test',this)">ซ้อม</button>
     <button class="tab" onclick="show('duo',this)">แบบฝึก</button>
     <button class="tab" onclick="show('source',this)">ต้นฉบับ</button>
+    <button class="tab" onclick="show('settings',this)">ตั้งค่า</button>
   </div>
 
   <main id="cheat"><div class="card"><h2>พิธีทั้งเรื่องในหน้าเดียว</h2><p><b>ขอบรรพชา → รับผ้า/กัมมัฏฐาน → ขอสรณะและศีล → ไตรสรณคมน์ → ศีล 10 → ขอนิสสัย → บาตรจีวร → อันตรายิกธรรม → ชื่อ → ขออุปสมบท → กรรมวาจา/อนุศาสน์</b></p><div id="cheatList" class="grid"></div></div></main>
@@ -52,6 +53,7 @@ h1{font-size:clamp(28px,5vw,38px);line-height:1.2}h2{font-size:21px;line-height:
   <main id="test" class="hide"><div class="card"><h2>ซ้อมดึงจากความจำ</h2><div id="q"></div><div class="actions"><button class="btn main" onclick="answer()">ดูเฉลย</button><button class="btn" onclick="next()">ข้อต่อไป</button></div></div></main>
   <main id="duo" class="hide"><div class="card"><h2>🎮 เลือกหมวดฝึก</h2><div class="actions"><button id="duoCoreBtn" class="btn" onclick="setDuoMode('core')">🔴 ต้องท่องเอง</button><button id="duoGuidedBtn" class="btn" onclick="setDuoMode('guided')">🟡 พระกล่าวนำ</button><button id="duoResponseBtn" class="btn" onclick="setDuoMode('response')">🟢 คำตอบสั้น</button><button id="duoOrderBtn" class="btn" onclick="setDuoMode('order')">🧭 ลำดับพิธี</button><button id="duoReviewBtn" class="btn" onclick="setDuoMode('review')">🎯 ทบทวนจุดยาก</button></div><div id="duoKinds" class="actions"></div><div id="duoSetList" class="actions"></div><div class="duo-head"><div class="progress"><div id="duoBar" class="bar"></div></div><button id="duoReset" class="btn" onclick="resetDuo()">↺ Reset ชุดนี้</button></div><div id="duoMeta" class="muted"></div><div id="duoQ"></div></div></main>
   <main id="source" class="hide"><div class="card"><h2>📄 ต้นฉบับพิธีบรรพชาอุปสมบท</h2><p class="muted">เรียงตามลำดับพิธี กดภาพเพื่อเปิดขนาดเต็ม</p><h3>หน้า 1/3 — คำขอบรรพชา</h3><a href="./original-2809.jpg" target="_blank" rel="noopener"><img class="source-page" src="./original-2809.jpg" loading="lazy" alt="ต้นฉบับคำขอบรรพชา หน้า 1"></a><h3>หน้า 2/3 — ศีล 10 และขอนิสสัย</h3><a href="./original-2807.jpg" target="_blank" rel="noopener"><img class="source-page" src="./original-2807.jpg" loading="lazy" alt="ต้นฉบับศีล 10 และขอนิสสัย หน้า 2"></a><h3>หน้า 3/3 — อันตรายิกธรรมและอุปสมบท</h3><a href="./original-2808.jpg" target="_blank" rel="noopener"><img class="source-page" src="./original-2808.jpg" loading="lazy" alt="ต้นฉบับอันตรายิกธรรมและอุปสมบท หน้า 3"></a></div></main>
+  <main id="settings" class="hide"><div class="card"><h2>ตั้งค่าฝึกพูด</h2><p class="muted">ใส่ Gemini API key ของคุณสำหรับโหมดฟังคำพูด (จะเพิ่มต่อจากนี้) คีย์เก็บเฉพาะในเบราว์เซอร์เครื่องนี้ ไม่อยู่ใน GitHub หรือ repo</p><label for="geminiKey"><b>Gemini API key</b></label><input id="geminiKey" class="key-input" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="AIza…"><div class="actions"><button class="btn main" onclick="saveGeminiKey()">บันทึกคีย์</button><button class="btn" onclick="clearGeminiKey()">ลบคีย์จากเครื่องนี้</button></div><p id="geminiKeyStatus" class="muted" aria-live="polite"></p></div></main>
 </div>
 <script>
 const S=[
@@ -144,6 +146,7 @@ const S=[
 const MEMORY=[['อุกาสะ','โอกาส → ขอโอกาส'],['วันทามิ','วันทา/ไหว้ → ข้าพเจ้าไหว้'],['เม','me → แก่ฉัน/ของฉัน'],['มัง','me → ตัวฉัน'],['ขะมะถะ','ขมา → โปรดยกโทษ'],['ปุญญัง','บุญ'],['อะนุโมทามิ','อนุโมทนา'],['การุญญัง','กรุณา'],['ปัพพัชชัง','บรรพชา'],['สะระณ*','สรณะ → ที่พึ่ง'],['สีลานิ','ศีล'],['ยาจามิ','ขอ/วิงวอน'],['นิพพานะ','นิพพาน'],['ทุกขะ','ทุกข์'],['ทันตา','dental → ฟัน'],['อุปะสัมปะทัง','อุปสมบท'],['นัตถิ','nothing → ไม่มี'],['อามะ','ใช่/ขอรับ'],['ภันเต','ข้าแต่ท่าน']];
 let done=JSON.parse(localStorage.getItem('done4')||'[]'),qi=0,deferredInstallPrompt=null;
 const oldDuo=JSON.parse(localStorage.getItem('duo4')||'{}'),oldDuo5=JSON.parse(localStorage.getItem('duo5')||'{}');
+const geminiKeyStore='openOrdinationGeminiKey';
 let duo=JSON.parse(localStorage.getItem('duo6')||'null')||{mode:'core',exercise:'choice',set:{core:0,guided:0},setProgress:{},hard:{},order:oldDuo5.order||oldDuo.order||{step:0,score:0},response:oldDuo5.response||{step:0,score:0}},duoLocked=false;
 duo.set??={core:0,guided:0};duo.setProgress??={};duo.hard??={};
 const duoLines=S.map(s=>s.p.split('\n').map(x=>x.trim().replace(/^\d+\s*/,'').replace(/\s*\(3 จบ\)$/,'')).filter(Boolean));
@@ -162,7 +165,11 @@ function listenPrev(){if(listenPlayer)listenPlayer.previousVideo()}
 function listenNext(){if(listenPlayer)listenPlayer.nextVideo()}
 function setListenRate(v){if(listenPlayer)listenPlayer.setPlaybackRate(Number(v))}
 function prog(){let p=Math.round(done.length/S.length*100);bar.style.width=p+'%';pct.textContent=`จำได้ ${done.length}/${S.length} หมวด (${p}%)`}
-function show(id,b){stopSpeak();document.querySelectorAll('main').forEach(x=>x.classList.add('hide'));document.getElementById(id).classList.remove('hide');document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));b.classList.add('on');if(id==='learn')render();if(id==='listen')renderListen();if(id==='duo')renderDuo()}
+function show(id,b){stopSpeak();document.querySelectorAll('main').forEach(x=>x.classList.add('hide'));document.getElementById(id).classList.remove('hide');document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));b.classList.add('on');if(id==='learn')render();if(id==='listen')renderListen();if(id==='duo')renderDuo();if(id==='settings')renderSettings()}
+// ponytail: browser-local storage is enough for a user-supplied key; add a server only when shared keys are needed.
+function renderSettings(){let key=localStorage.getItem(geminiKeyStore)||'';geminiKey.value=key;geminiKeyStatus.textContent=key?'บันทึกคีย์ไว้ในเบราว์เซอร์เครื่องนี้แล้ว':'ยังไม่ได้บันทึกคีย์'}
+function saveGeminiKey(){let key=geminiKey.value.trim();if(!key){geminiKeyStatus.textContent='กรุณาใส่คีย์ก่อนบันทึก';return}localStorage.setItem(geminiKeyStore,key);geminiKeyStatus.textContent='บันทึกแล้ว — คีย์จะใช้กับโหมดฝึกพูดเท่านั้น'}
+function clearGeminiKey(){localStorage.removeItem(geminiKeyStore);geminiKey.value='';geminiKeyStatus.textContent='ลบคีย์จากเบราว์เซอร์เครื่องนี้แล้ว'}
 function renderCheat(){cheatList.innerHTML=S.map((s,i)=>`<div class="mini cheat" onclick="openL(${i})"><b>${i+1}. ${s.t}</b><div>${s.e}</div></div>`).join('')}
 function literal(s){return `<div class="literal"><b>🔬 บาลีทีละคำ / ทีละส่วน</b><div class="literal-grid">${s.lit.map(x=>`<span class="word"><b>${x[0]}</b><span>= ${x[1]}</span></span>`).join('')}</div></div>`}
 function memoryPairs(lessons){let words=lessons.flatMap(i=>S[i].p.split(/\s+/)).map(x=>x.replace(/[.,:—()\d]/g,''));return MEMORY.filter(([word])=>word.endsWith('*')?words.some(x=>x.startsWith(word.slice(0,-1))):words.includes(word))}
