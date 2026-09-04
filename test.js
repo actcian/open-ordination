@@ -36,7 +36,6 @@ assert(html.includes('.pali{border:1px solid var(--l);border-left:1px solid var(
 assert(html.includes('h1{font-size:clamp(28px,5vw,38px)'));
 assert(html.includes('src="./favicon.svg"')&&html.includes('class="brand-mark"'));
 assert(html.includes('function checkWordDuo()'));
-assert(html.includes("replace(/^\\d+\\s*/,'').replace(/\\s*\\(3 จบ\\)$/,'')"));
 assert(html.includes('const duoCoreSteps=lineSteps([0,1,2,3,5,8,13])'));
 assert(html.includes('const duoGuidedSteps=lineSteps([4,6,7])'));
 assert(html.includes("localStorage.getItem('duo5')"));
@@ -76,8 +75,29 @@ assert(html.includes("liveFinalTranscript=(liveFinalTranscript+' '+finalText).tr
 assert(html.includes("speechScoreStore='openOrdinationSpeechScore'"));
 assert(html.includes('function scoreSpeech(expected,heard)'));
 assert(html.includes("liveFinalTranscript='';liveAdvancing=false},1600"));
-assert(worker.includes("open-ordination-v35"));
+assert(worker.includes("open-ordination-v36"));
 const lessons=new Function('return ['+html.match(/const S=\[([\s\S]*?)\n\];/)[1]+']')();
 for(const line of lessons[10].p.split('\n')) assert.equal(line.split(' — ')[1],'นัตถิ ภันเต');
 for(const line of lessons[11].p.split('\n')) assert.equal(line.split(' — ')[1],'อามะ ภันเต');
 console.log('four practice categories, YouTube audio, and source pages are present');
+const sourceCode=html.slice(html.indexOf('const S=['),html.indexOf('// ponytail: one shared list'));
+const {S,SOURCE_CONTEXT,lessonMarkup}=new Function(sourceCode+';return {S,SOURCE_CONTEXT,lessonMarkup}')();
+assert(S[8].p.startsWith('อุกาสะ การุญญัง กัตวา, นิสสะยัง เทถะ เม ภันเต'));
+assert(S[8].p.includes('อัชชะตัคเค ทานิเถโร มัยหังภาโร อะหัมปิ เถรัสสะ ภาโร'));
+assert(S[7].p.includes('ชาตะรูปะ ระชะตะ ปะฏิคคะหะณา'));
+assert(S[12].p.includes('อายัสมา วะระโท นามะ.'));
+const lesson8=lessonMarkup(S[8]);
+assert(lesson8.indexOf('โหหิ')<lesson8.indexOf('ปฏิรูปัง'));
+assert(lesson8.indexOf('สัมปฏิจฉามิ')<lesson8.indexOf('อัชชะตัคเค'));
+assert.equal((lesson8.match(/สัมปฏิจฉามิ/g)||[]).length,3);
+const lesson6=lessonMarkup(S[6]);
+assert(lesson6.indexOf('ยะมะหัง')<lesson6.indexOf('พุทธัง'));
+assert(lesson6.indexOf('ตะติยัมปิ สังฆัง')<lesson6.indexOf('นิฏฐิตัง'));
+const linesCode=html.match(/const duoLines=[\s\S]*?(?=let selectedWords)/)[0];
+const drills=new Function('S','SOURCE_CONTEXT',linesCode+';return {duoLines,duoCoreSteps,duoResponseSteps}')(S,SOURCE_CONTEXT);
+for(const {lesson,line} of drills.duoCoreSteps){assert(!/พระพูด|ท่าทาง|ปฏิรูปัง|โอปายิกัง|ปาสาทิเก/.test(drills.duoLines[lesson][line]));}
+assert(drills.duoLines[7].every(line=>!/^\d|^\./.test(line)));
+assert(drills.duoResponseSteps.some(s=>s.prompt==='ปฏิรูปัง'&&s.answer==='อุกาสะ สัมปฏิจฉามิ'));
+assert(drills.duoResponseSteps.some(s=>s.prompt==='ยะมะหัง วะทามิตัง วะเทหิ'&&s.answer==='อามะ ภันเต'));
+new Function(html.match(/<script>([\s\S]*?)<\/script>/)[1]);
+console.log('source corrections, response order, and recitation boundaries verified');
