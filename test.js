@@ -101,3 +101,16 @@ assert(drills.duoResponseSteps.some(s=>s.prompt==='ปฏิรูปัง'&&s.
 assert(drills.duoResponseSteps.some(s=>s.prompt==='ยะมะหัง วะทามิตัง วะเทหิ'&&s.answer==='อามะ ภันเต'));
 new Function(html.match(/<script>([\s\S]*?)<\/script>/)[1]);
 console.log('source corrections, response order, and recitation boundaries verified');
+const migrate=new Function('duo','localStorage','speechStepStore','speechScoreStore',html.slice(html.indexOf('if(duo.sourceVersion'),html.indexOf('duo.set??=')));
+const saved=new Map(),storage={setItem:(k,v)=>saved.set(k,v),removeItem:k=>saved.delete(k)};
+const progress={setProgress:{coreChoice0:{step:5},coreWords8:{step:3},coreChoice1:{step:2},guidedChoice7:{step:4}},hard:{old:{lesson:8},keep:{lesson:7}},order:{step:9,score:8},response:{step:5}};
+migrate(progress,storage,'speechStep','speechScore');
+assert.deepEqual(progress.order,{step:9,score:8});
+assert.equal(progress.setProgress.coreChoice1.step,2);
+assert.equal(progress.setProgress.guidedChoice7.step,4);
+assert(!progress.setProgress.coreChoice0&&!progress.setProgress.coreWords8);
+assert(progress.hard.keep&&!progress.hard.old);
+assert(saved.has('duo6-before-source-correction'));
+progress.response.step=2;
+migrate(progress,storage,'speechStep','speechScore');
+assert.equal(progress.response.step,2);
