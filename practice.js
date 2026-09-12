@@ -265,11 +265,16 @@ current.prompt คือบทพระ (ถ้ามี) ให้กล่า�
     const sdp = await response.text(); if (connection === c) await c.peer.setRemoteDescription({type: 'answer', sdp});
   }
   function connectGemini(c, key) {
+    // OpenAI JSON Schema and Google's wire Schema use different type enums.
+    const googleSchema = schema => ({...schema, type: schema.type.toUpperCase(),
+      ...(schema.properties ? {properties: Object.fromEntries(Object.entries(schema.properties).map(([k, v]) => [k, googleSchema(v)]))} : {})});
+    const googleTool = {...tool, parameters: googleSchema(tool.parameters)};
+    const detail = value => String(value || '').split(key).join('[redacted]').replace(/AIza[\w-]+/g, '[redacted]').slice(0, 400);
     c.socket = new WebSocket('wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent?key=' + encodeURIComponent(key));
     const send = e => {if (connection === c && c.socket.readyState === WebSocket.OPEN) c.socket.send(JSON.stringify(e));};
     c.socket.onopen = () => send({setup: {model: 'models/gemini-3.1-flash-live-preview',
       generationConfig: {responseModalities: ['AUDIO'], speechConfig: {voiceConfig: {prebuiltVoiceConfig: {voiceName: 'Kore'}}}},
-      systemInstruction: {parts: [{text: instructions()}]}, tools: [{functionDeclarations: [tool]}],
+      systemInstruction: {parts: [{text: instructions()}]}, tools: [{functionDeclarations: [googleTool]}],
       inputAudioTranscription: {}, outputAudioTranscription: {},
       realtimeInputConfig: {automaticActivityDetection: {silenceDurationMs: 1800}}}});
     c.socket.onmessage = async event => {
@@ -290,10 +295,11 @@ current.prompt คือบทพระ (ถ้ามี) ให้กล่า�
       if (content?.inputTranscription?.text) userText += content.inputTranscription.text;
       if (content?.outputTranscription?.text) teacherText += content.outputTranscription.text;
       if (content?.turnComplete) {append('คุณ', userText); playApproved(c, teacherText); userText = ''; teacherText = '';}
-      if (e.error) fail(c, 'Gemini แจ้งข้อผิดพลาด ตรวจ API key และสิทธิ์ใช้ Live');
+      if (e.error) fail(c, `Gemini: ${detail(e.error.message || e.error.status || 'เกิดข้อผิดพลาด')}`);
     };
-    c.socket.onerror = () => fail(c, 'เชื่อมต่อ Gemini Live ไม่สำเร็จ');
-    c.socket.onclose = () => fail(c, 'การเชื่อมต่อขาด — กดซ้อมต่อจากวรรคเดิมได้');
+    // onerror precedes onclose; wait for the close reason rather than hiding it.
+    c.socket.onerror = () => {c.transportError = true;};
+    c.socket.onclose = event => fail(c, `Gemini ปิดการเชื่อมต่อ (${event.code})${event.reason ? ': ' + detail(event.reason) : ' — เซิร์ฟเวอร์ไม่ได้ส่งรายละเอียด'} · ความคืบหน้ายังอยู่`);
   }
   // Both provider choices now use exactly this view, state machine and policy.
   const previousStop = stopLiveSpeech;
