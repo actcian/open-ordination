@@ -75,7 +75,7 @@ assert(html.includes("liveFinalTranscript=(liveFinalTranscript+' '+finalText).tr
 assert(html.includes("speechScoreStore='openOrdinationSpeechScore'"));
 assert(html.includes('function scoreSpeech(expected,heard)'));
 assert(html.includes("liveFinalTranscript='';liveAdvancing=false},1600"));
-assert(worker.includes("open-ordination-v39"));
+assert(worker.includes("open-ordination-v40"));
 assert(html.includes("openaiKeyStore='openOrdinationOpenAIKey'"));
 assert(html.includes("providerStore='openOrdinationVoiceProvider'"));
 assert(html.includes("https://api.openai.com/v1/realtime/calls"));
