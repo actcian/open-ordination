@@ -75,7 +75,7 @@ assert(html.includes("liveFinalTranscript=(liveFinalTranscript+' '+finalText).tr
 assert(html.includes("speechScoreStore='openOrdinationSpeechScore'"));
 assert(html.includes('function scoreSpeech(expected,heard)'));
 assert(html.includes("liveFinalTranscript='';liveAdvancing=false},1600"));
-assert(worker.includes("open-ordination-v38"));
+assert(worker.includes("open-ordination-v39"));
 assert(html.includes("openaiKeyStore='openOrdinationOpenAIKey'"));
 assert(html.includes("providerStore='openOrdinationVoiceProvider'"));
 assert(html.includes("https://api.openai.com/v1/realtime/calls"));
@@ -85,7 +85,7 @@ assert(html.includes("model:'gpt-4o-mini-transcribe'"));
 assert(html.includes("model:'gpt-4o-mini-tts'"));
 assert(html.includes('function sourcePracticeText()'));
 assert(html.includes('ต้นฉบับ 3 หน้า (ถอดเป็นข้อมูลในแอป)'));
-assert(html.includes('Gemini — ตรวจทีละวรรค'));
+assert(html.includes('Gemini — สนทนาด้วยเสียง'));
 assert(html.includes('OpenAI — สนทนาด้วยเสียง'));
 const lessons=new Function('return ['+html.match(/const S=\[([\s\S]*?)\n\];/)[1]+']')();
 for(const line of lessons[10].p.split('\n')) assert.equal(line.split(' — ')[1],'นัตถิ ภันเต');
